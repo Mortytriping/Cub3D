@@ -6,7 +6,7 @@
 #    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/15 12:33:34 by apouesse         ###   ########.fr        #
+#    Updated: 2025/03/15 19:01:01 by apouesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,16 @@ MLX = $(MLX_DIR)/libmlx.a $(MLX_DIR)/libmlx_Linux.a
 
 INCLUDES_DIR = includes
 
-SRCS_DIR = srcs/
-SRCS = $(SRCS_DIR)main.c 
+SRCS = srcs/main.c \
+	srcs/colors/colors.c \
+	srcs/freeing/uninit_data.c \
+	srcs/init_data/init_data.c \
+	srcs/Inputs/inputs.c \
+	srcs/Parsing/parsing.c \
+	srcs/Raycasting/raycasting_1.c \
+	srcs/Rendering/rendering.c \
+	srcs/utils/mlx_utils/mlx_utils_1.c \
+	srcs/utils/utils_1.c \
 
 TOTAL = $(words $(SRCS))
 
@@ -44,7 +52,7 @@ all : $(NAME)
 %.o: %.c $(LIBFT)
 	@$(CC) $(CFLAGS) -I/include -I/libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
-$(NAME) : $(LIBFT) $(OBJS)
+$(NAME) : $(LIBFT) $(MLX) $(OBJS)
 	@compiled=0; \
 	total=$(TOTAL); \
 	width=20; \
@@ -67,7 +75,7 @@ $(NAME) : $(LIBFT) $(OBJS)
 	  printf "\rCompilation en cours: ⏳[%s]⏳" "$$new_bar"; \
 	  sleep 0.1; \
 	done;
-	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -Lmlx_linux -Lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) && \
+	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) && \
 	echo -e "\n$(GREEN)🔥Compilation done!🔥$(RESET)" || \
 	{ echo -e "\n$(RED)Compilation failed!$(RESET)"; exit 1; }
 
@@ -75,13 +83,13 @@ $(LIBFT) :
 	@$(MAKE) -s -C $(LIBFT_DIR) bonus
 
 $(MLX) :
-	@(MAKE) -s -C $(MLX_DIR)
+	@$(MAKE) -s -C $(MLX_DIR)
 
 clean :
 	@rm -rf $(OBJS)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@$(MAKE) -s -C $(MLX_DIR) clean
-	@echo -e "$(JAUNE)​🧼🧼 OBJS cleaned all!​ 🧼​🧼$(RESET)"
+	@echo -e "$(JAUNE)​🧼🧼 OBJS cleaned all! 🧼​🧼$(RESET)"
 
 fclean : clean
 	@rm -rf $(OBJS) $(NAME)

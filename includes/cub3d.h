@@ -6,21 +6,24 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 15:16:56 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:04:21 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBD3D_H
 # define CUBD3D_H
 
+/*---------------------includes---------------------*/
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdio.h>
 # include <math.h>
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 
-/*----------mlx_init_structures----------*/
+/*---------------mlx_init_structures---------------*/
 
 typedef struct s_mlx
 {
@@ -31,7 +34,13 @@ typedef struct s_mlx
 	int		endian;
 }	t_mlx;
 
-/*-----------others structures-----------*/
+typedef struct s_envx
+{
+	void		*mlx;
+	void		*mlx_win;
+} t_envx;
+
+/*----------------others structures----------------*/
 
 typedef struct s_colors
 {
@@ -59,12 +68,11 @@ typedef struct	s_map
     int   		height;
 } t_map;
 
-/*-----------main data structure-----------*/
+/*---------------main data structure---------------*/
 
 typedef struct s_cub
 {
-	void		*mlx;
-	void		*mlx_win;
+	t_envx		*envx;
 	t_mlx		img;
 	int 		win_width;
 	int 		win_height;
@@ -72,8 +80,36 @@ typedef struct s_cub
 	t_map		*map;
 } t_cub;
 
-/*-----------fonctions declarations-----------*/
+/*-----------fonctions declarations start-----------*/
 
+/*------main------*/
+
+/*-----colors-----*/
+void	trunc_error_rgb(int *r, int *g, int *b);
+
+/*-----freeing-----*/
+void	last_free_uninit_data(t_cub *data);
+
+/*-----init_data-----*/
+t_cub	*init_data();
+
+/*-----inputs-----*/
+
+/*-----parsing-----*/
+
+/*---Raycasting---*/
+
+/*----Rendering----*/
+
+/*------utils------*/
+void	err_msg(char *str);
+
+/*----mlx_utils----*/
+void	init_win_img(t_cub *data);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+int		close_win(t_envx *env);
+void	end_mlx(t_cub *data);
+
+/*------------fonctions declarations end------------*/
 
 #endif

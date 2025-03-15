@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 19:28:48 by apouesse         ###   ########.fr       */
+/*   Created: 2025/03/15 16:35:38 by apouesse          #+#    #+#             */
+/*   Updated: 2025/03/15 16:41:47 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int	main(int ac, char **av)
+void	trunc_error_rgb(int *r, int *g, int *b)
 {
-	t_cub	*data;
-
-	(void)av;
-	(void)ac;
-	data = init_data();
-	// parsing(av);
-	data->envx->mlx = mlx_init();
-	init_win_img(data);
-	mlx_hook(data->envx->mlx_win, 17, 0, close_win, data->envx);
-	mlx_loop(data->envx->mlx);
-	end_mlx(data);
-	return (0);
+	if (*r < 0)
+		*r = 0;
+	if (*r > 255)
+		*r = 255;
+	if (*g < 0)
+		*g = 0;
+	if (*g > 255)
+		*g = 255;
+	if (b < 0)
+		*b = 0;
+	if (*b > 255)
+		*b = 255;
 }

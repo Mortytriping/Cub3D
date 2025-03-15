@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 14:19:49 by apouesse         ###   ########.fr       */
+/*   Created: 2025/03/15 12:41:30 by apouesse          #+#    #+#             */
+/*   Updated: 2025/03/15 18:43:26 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+void	err_msg(char *str)
 {
-	char	*dst;
+	size_t	i;
 
-	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	i = 0;
+	while (str && str[i])
+	{
+		write(2, &str[i], 1);
+		i++;
+	}
 }
