@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 12:31:30 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:54:33 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
+	t_cub	*data;
+
+	parsing(av);
+	data->mlx = mlx_init();
+
 	return (0);
 }
