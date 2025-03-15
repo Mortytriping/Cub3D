@@ -6,7 +6,7 @@
 #    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/15 12:09:21 by apouesse         ###   ########.fr        #
+#    Updated: 2025/03/15 12:33:34 by apouesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ NAME = cub3D
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
+
+MLX_DIR = mlx_linux
+MLX = $(MLX_DIR)/libmlx.a $(MLX_DIR)/libmlx_Linux.a
 
 INCLUDES_DIR = includes
 
@@ -64,20 +67,27 @@ $(NAME) : $(LIBFT) $(OBJS)
 	  printf "\rCompilation en cours: ⏳[%s]⏳" "$$new_bar"; \
 	  sleep 0.1; \
 	done;
-	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME); \
-	echo -e "\n$(GREEN)🔥Compilation done!🔥$(RESET)"
+	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -Lmlx_linux -Lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) && \
+	echo -e "\n$(GREEN)🔥Compilation done!🔥$(RESET)" || \
+	{ echo -e "\n$(RED)Compilation failed!$(RESET)"; exit 1; }
 
 $(LIBFT) :
 	@$(MAKE) -s -C $(LIBFT_DIR) bonus
 
+$(MLX) :
+	@(MAKE) -s -C $(MLX_DIR)
+
 clean :
 	@rm -rf $(OBJS)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
+	@$(MAKE) -s -C $(MLX_DIR) clean
+	@echo -e "$(JAUNE)​🧼🧼 OBJS cleaned all!​ 🧼​🧼$(RESET)"
 
 fclean : clean
 	@rm -rf $(OBJS) $(NAME)
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
-	echo -e "$(RED)Successfully cleaned all!$(RESET)"
+	@$(MAKE) -s -C $(MLX_DIR) clean
+	@echo -e "$(VIOLET)​🧼​🧼​🧼🧼 Successfully cleaned all! 🧼​​🧼​​🧼​🧼$(RESET)"
 
 re : fclean $(NAME)
 
