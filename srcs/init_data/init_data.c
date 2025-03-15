@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 18:28:34 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 18:55:24 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:41:06 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_data_extension(t_cub *data)
 		err_msg("error: malloc fatal fail at init_data.c!\n");
 		exit (1);
 	}
-	data->map = malloc(sizeof(t_player));
+	data->map = malloc(sizeof(t_map));
 	if (!data->map)
 	{
 		free(data);

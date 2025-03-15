@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 19:21:43 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:56:17 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	end_mlx(t_cub *data)
 	mlx_destroy_window(data->envx->mlx, data->envx->mlx_win);
 	mlx_destroy_display(data->envx->mlx);
 	//free all here
+	free(data->envx->mlx);
 	last_free_uninit_data(data);
 }
