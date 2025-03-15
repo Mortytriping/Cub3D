@@ -6,7 +6,7 @@
 #    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/15 11:16:24 by apouesse         ###   ########.fr        #
+#    Updated: 2025/03/15 12:09:21 by apouesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ CC = cc
 all : $(NAME)
 
 %.o: %.c $(LIBFT)
-	@$(CC) $(CFLAGS) -I/include -I/libft -c $< -o $@
+	@$(CC) $(CFLAGS) -I/include -I/libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJS)
 	@compiled=0; \
@@ -64,7 +64,7 @@ $(NAME) : $(LIBFT) $(OBJS)
 	  printf "\rCompilation en cours: ⏳[%s]⏳" "$$new_bar"; \
 	  sleep 0.1; \
 	done;
-	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -lft -o $(NAME) -lreadline; \
+	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME); \
 	echo -e "\n$(GREEN)🔥Compilation done!🔥$(RESET)"
 
 $(LIBFT) :
