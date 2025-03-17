@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_print_uint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 10:57:54 by apouesse          #+#    #+#             */
-/*   Updated: 2024/11/17 10:57:55 by apouesse         ###   ########.fr       */
+/*   Created: 2024/11/18 13:35:21 by abaroukh          #+#    #+#             */
+/*   Updated: 2024/11/18 14:10:15 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_print_uint(unsigned int n, int *len)
 {
-	t_list	*last;
-	int		i;
-
-	last = lst;
-	i = 0;
-	if (lst == 0)
-		return (lst);
-	while (last->next)
+	if (n <= 9)
+		ft_putchar(n + '0', len);
+	else
 	{
-		last = last->next;
-		i--;
+		ft_print_uint(n / 10, len);
+		ft_print_uint(n % 10, len);
 	}
-	return (last);
 }

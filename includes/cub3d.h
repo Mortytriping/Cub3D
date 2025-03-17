@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 19:04:21 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:49:19 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <math.h>
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
+# include <stdbool.h>
 
 /*---------------mlx_init_structures---------------*/
 
@@ -38,7 +39,7 @@ typedef struct s_envx
 {
 	void		*mlx;
 	void		*mlx_win;
-} t_envx;
+}	t_envx;
 
 /*----------------others structures----------------*/
 
@@ -47,13 +48,13 @@ typedef struct s_colors
 	int	R;
 	int	G;
 	int	B;
-} t_colors;
+}	t_colors;
 
 typedef struct s_player
 {
 	float	px;
 	float	py;
-} t_player;
+}	t_player;
 
 typedef struct	s_map
 {
@@ -64,9 +65,9 @@ typedef struct	s_map
 	char		*tex_ea;
 	t_colors	*floor;
 	t_colors	*sky;
-	int   		width;
-    int   		height;
-} t_map;
+	int			width;
+    int			height;
+}	t_map;
 
 /*---------------main data structure---------------*/
 
@@ -78,7 +79,7 @@ typedef struct s_cub
 	int 		win_height;
 	t_player	*p1;
 	t_map		*map;
-} t_cub;
+}	t_cub;
 
 /*-----------fonctions declarations start-----------*/
 
@@ -91,7 +92,7 @@ void	trunc_error_rgb(int *r, int *g, int *b);
 void	last_free_uninit_data(t_cub *data);
 
 /*-----init_data-----*/
-t_cub	*init_data();
+t_cub	*init_data(void);
 
 /*-----inputs-----*/
 

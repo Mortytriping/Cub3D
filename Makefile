@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
+#    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/15 19:01:01 by apouesse         ###   ########.fr        #
+#    Updated: 2025/03/17 14:23:38 by abaroukh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ $(NAME) : $(LIBFT) $(MLX) $(OBJS)
 	{ echo -e "\n$(RED)Compilation failed!$(RESET)"; exit 1; }
 
 $(LIBFT) :
-	@$(MAKE) -s -C $(LIBFT_DIR) bonus
+	@$(MAKE) -s -C $(LIBFT_DIR)
 
 $(MLX) :
 	@$(MAKE) -s -C $(MLX_DIR)

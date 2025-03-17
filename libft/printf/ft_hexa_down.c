@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_hexa_down.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 10:46:04 by apouesse          #+#    #+#             */
-/*   Updated: 2024/11/17 10:52:34 by apouesse         ###   ########.fr       */
+/*   Created: 2024/11/18 13:35:26 by abaroukh          #+#    #+#             */
+/*   Updated: 2024/11/18 17:22:42 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_hexa_down(unsigned int nb, int *len)
 {
-	int		len;
-	t_list	*temps;
-
-	temps = lst;
-	len = 0;
-	while (temps)
+	if (nb >= 16)
 	{
-		temps = temps->next;
-		len++;
+		ft_hexa_down(nb / 16, len);
+		ft_hexa_down(nb % 16, len);
 	}
-	return (len);
+	else
+	{
+		if (nb <= 9)
+			ft_putchar(nb + '0', len);
+		else
+			ft_putchar((nb - 10) + 'a', len);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 18:28:34 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 19:41:06 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:51:54 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	init_data_extension(t_cub *data)
 	init_data_extension2(data);
 }
 
-t_cub *init_data()
+t_cub *init_data(void)
 {
 	t_cub	*data;
-	
+
 	data = malloc(sizeof(t_cub));
 	if (!data)
 	{

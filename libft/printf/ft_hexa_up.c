@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_hexa_up.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 14:33:32 by apouesse          #+#    #+#             */
-/*   Updated: 2024/11/18 14:33:41 by apouesse         ###   ########.fr       */
+/*   Created: 2024/11/18 13:35:24 by abaroukh          #+#    #+#             */
+/*   Updated: 2024/11/18 16:57:36 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_hexa_up(unsigned int nb, int *len)
 {
-	t_list	*after;
-	t_list	*stock;
-
-	after = *lst;
-	while (after != 0)
+	if (nb >= 16)
 	{
-		stock = after->next;
-		del(after->content);
-		free(after);
-		after = stock;
+		ft_hexa_up(nb / 16, len);
+		ft_hexa_up(nb % 16, len);
 	}
-	*lst = after;
+	else
+	{
+		if (nb <= 9)
+			ft_putchar(nb + '0', len);
+		else
+			ft_putchar((nb - 10) + 'A', len);
+	}
 }

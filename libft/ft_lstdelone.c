@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 09:37:53 by apouesse          #+#    #+#             */
-/*   Updated: 2024/11/17 09:37:55 by apouesse         ###   ########.fr       */
+/*   Created: 2024/11/14 16:15:14 by abaroukh          #+#    #+#             */
+/*   Updated: 2024/11/27 17:11:36 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	t_list	*new_element;
-
-	new_element = (t_list *)malloc(sizeof(*new_element));
-	if (new_element == 0)
-		return (0);
-	new_element->content = content;
-	new_element->next = 0;
-	return (new_element);
+	if (!lst)
+		return ;
+	if (del)
+		del (lst->content);
+	free (lst);
 }

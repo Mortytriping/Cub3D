@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 13:16:28 by apouesse          #+#    #+#             */
-/*   Updated: 2024/11/18 13:16:31 by apouesse         ###   ########.fr       */
+/*   Created: 2024/11/18 12:38:37 by abaroukh          #+#    #+#             */
+/*   Updated: 2024/11/18 14:10:22 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_putnbr(int nb, int *len)
 {
-	t_list	*after;
+	long int	n;
 
-	after = lst->next;
-	del(lst->content);
-	free(lst);
-	lst = after;
+	n = nb;
+	if (n < 0)
+	{
+		n = -n;
+		ft_putchar('-', len);
+	}
+	if (n <= 9)
+		ft_putchar(n + '0', len);
+	else
+	{
+		ft_putnbr(n / 10, len);
+		ft_putnbr(n % 10, len);
+	}
 }

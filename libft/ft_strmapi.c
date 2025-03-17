@@ -3,53 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 11:09:13 by apouesse          #+#    #+#             */
-/*   Updated: 2024/11/16 11:09:16 by apouesse         ###   ########.fr       */
+/*   Created: 2024/11/13 10:24:19 by abaroukh          #+#    #+#             */
+/*   Updated: 2024/11/29 16:34:30 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ftlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-static void	ftcopy(const char	*src, char *dest)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return ;
-}
-
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char			*mapi;
-	unsigned int	i;
+	size_t	i;
+	char	*new;
 
-	mapi = malloc(ftlen(s) + 1);
-	if (mapi == 0)
-		return (mapi);
-	ftcopy(s, mapi);
+	new = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!new)
+		return (NULL);
 	i = 0;
 	while (s[i])
 	{
-		mapi[i] = f(i, mapi[i]);
+		new[i] = (*f)(i, s[i]);
 		i++;
 	}
-	return (mapi);
+	new[i] = '\0';
+	return (new);
 }
