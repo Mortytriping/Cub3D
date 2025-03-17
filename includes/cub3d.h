@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 15:49:19 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:02:40 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ typedef struct s_envx
 
 typedef struct s_colors
 {
-	int	R;
-	int	G;
-	int	B;
-}	t_colors;
+	int	t; 		// == 255 par defaut;
+	int	r;
+	int	g;
+	int	b;
+	int color; 	//utiliser create_trgb(t, r, g, b) pour creer la couleur; 
+} t_colors;
 
 typedef struct s_player
 {
@@ -74,7 +76,8 @@ typedef struct	s_map
 typedef struct s_cub
 {
 	t_envx		*envx;
-	t_mlx		img;
+	t_mlx		img[2];
+	int			active_img;
 	int 		win_width;
 	int 		win_height;
 	t_player	*p1;
@@ -86,7 +89,8 @@ typedef struct s_cub
 /*------main------*/
 
 /*-----colors-----*/
-void	trunc_error_rgb(int *r, int *g, int *b);
+void	trunc_error_rgb(int *t, int *r, int *g, int *b);
+int		create_trgb(int t, int r, int g, int b);
 
 /*-----freeing-----*/
 void	last_free_uninit_data(t_cub *data);
@@ -95,15 +99,19 @@ void	last_free_uninit_data(t_cub *data);
 t_cub	*init_data(void);
 
 /*-----inputs-----*/
+int	keyboard_events(int keycode, t_envx *envx);
 
 /*-----parsing-----*/
 
 /*---Raycasting---*/
+void	raycaster(t_cub *data);
 
 /*----Rendering----*/
+int		render_next_frame(void *data);
 
 /*------utils------*/
 void	err_msg(char *str);
+void	free_array(char **array);
 
 /*----mlx_utils----*/
 void	init_win_img(t_cub *data);

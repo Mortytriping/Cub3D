@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 18:28:34 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 14:51:54 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:37:27 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ void	init_data_extension(t_cub *data)
 	{
 		free(data);
 		free(data->envx);
-		free(data->p1);		
+		free(data->p1);
 		err_msg("error: malloc fatal fail at init_data.c!\n");
 		exit (1);
 	}
 	init_data_extension2(data);
+	data->active_img = 0;
 }
 
-t_cub *init_data(void)
+t_cub	*init_data(void)
 {
 	t_cub	*data;
 
