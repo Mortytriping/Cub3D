@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 14:25:24 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:14:39 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ typedef struct	s_map
 typedef struct s_cub
 {
 	t_envx		*envx;
-	t_mlx		img;
+	t_mlx		img[2];
+	int			active_img;
 	int 		win_width;
 	int 		win_height;
 	t_player	*p1;
@@ -102,8 +103,10 @@ int	keyboard_events(int keycode, t_envx *envx);
 /*-----parsing-----*/
 
 /*---Raycasting---*/
+void	raycaster(t_cub *data);
 
 /*----Rendering----*/
+int		render_next_frame(void *data);
 
 /*------utils------*/
 void	err_msg(char *str);

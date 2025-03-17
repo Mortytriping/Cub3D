@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 18:28:34 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/15 19:41:06 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:15:16 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_data_extension(t_cub *data)
 		exit (1);
 	}
 	init_data_extension2(data);
+	data->active_img = 0;
 }
 
 t_cub *init_data()
