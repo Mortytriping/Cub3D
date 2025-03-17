@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 15:14:39 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:56:59 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		create_trgb(int t, int r, int g, int b);
 void	last_free_uninit_data(t_cub *data);
 
 /*-----init_data-----*/
-t_cub	*init_data();
+t_cub	*init_data(void);
 
 /*-----inputs-----*/
 int	keyboard_events(int keycode, t_envx *envx);

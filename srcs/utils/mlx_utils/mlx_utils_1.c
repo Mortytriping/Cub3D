@@ -6,14 +6,13 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 15:52:47 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:56:21 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cub3d.h"
 
-
-void init_img(t_cub *data, int img)
+void	init_img(t_cub *data, int img)
 {
 	data->img[img].img = mlx_new_image(data->envx->mlx, 1920, 1080);
 	if (!data->img[img].img)
@@ -27,8 +26,8 @@ void init_img(t_cub *data, int img)
 		exit(1);
 	}
 	data->img[img].addr = mlx_get_data_addr(data->img[img].img,
-		&data->img[img].bits_per_pixel,
-		&data->img[img].line_length, &data->img[img].endian);
+			&data->img[img].bits_per_pixel,
+			&data->img[img].line_length, &data->img[img].endian);
 	if (!data->img[img].addr)
 	{
 		mlx_clear_window(data->envx->mlx, data->envx->mlx_win);
@@ -50,12 +49,12 @@ void	init_win_img(t_cub *data)
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
 		err_msg("fatal error on mlx\n");
-		exit(1);	
+		exit(1);
 	}
 	init_img(data, 0);
 	init_img(data, 1);
 	mlx_put_image_to_window(data->envx->mlx, data->envx->mlx_win,
-	data->img[data->active_img].img, 0, 0);
+		data->img[data->active_img].img, 0, 0);
 }
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
@@ -63,7 +62,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	char	*dst;
 
 	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 int	close_win(t_envx *env)

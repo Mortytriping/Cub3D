@@ -6,13 +6,13 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 15:09:43 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:55:01 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int render_next_frame(void *data)
+int	render_next_frame(void *data)
 {
 	raycaster(data);
 	return (0);
