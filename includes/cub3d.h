@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 15:56:59 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:47:16 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct	s_map
 	t_colors	*floor;
 	t_colors	*sky;
 	int   		width;
-    int   		height;
+	int			height;
 } t_map;
 
 /*---------------main data structure---------------*/
@@ -106,7 +106,7 @@ int	keyboard_events(int keycode, t_envx *envx);
 void	raycaster(t_cub *data);
 
 /*----Rendering----*/
-int		render_next_frame(void *data);
+int		render_next_frame(t_cub *data);
 
 /*------utils------*/
 void	err_msg(char *str);
