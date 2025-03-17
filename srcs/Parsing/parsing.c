@@ -23,40 +23,52 @@ bool	init_textures_colors(int fd, t_map *map)
 
 	while (i < 6)
 	{
-		while (1)
+		j = 0;
+		line = get_next_line(fd);
+		if (!line)
+			return (ft_putstr_fd("Error: Missing texture/color data!\n", 2),
+				false);
+		line = ft_strtrim(line, " \n");
+		if (!line)
+			return (ft_putstr_fd("Error: Memory issue!\n", 2), false);
+		line_tab = ft_split(line, " ");
+		free(line);
+		if (!line_tab)
+			return (ft_putstr_fd("Error: Memory issue!\n", 2), false);
+		while (line_tab[j] && line_tab[j + 1])
 		{
-			j = 0;
-			line = get_next_line(fd);
-			if (!line)
-				return (false);
-			line_tab = ft_split(line, " ");
-			if (!line_tab)
-				return (free(line), false);
-			if (ft_strncmp(line[j], "NO", 2) == 0
-				|| ft_strncmp(line[j], "SO", 2) == 0
-				|| ft_strncmp(line[j], "WE", 2) == 0
-				|| ft_strncmp(line[j], "EA", 2) == 0)
+			if (ft_strncmp(line_tab[j], "NO", 2) == 0
+				|| ft_strncmp(line_tab[j], "SO", 2) == 0
+				|| ft_strncmp(line_tab[j], "WE", 2) == 0
+				|| ft_strncmp(line_tab[j], "EA", 2) == 0)
 			{
-				if (init_textures(line[j], line[j + 1], &map))
-					i++;
-				else
-					return (free(line), free_array(line_tab),
+				if (!init_textures(line_tab[j], line_tab[j + 1], &map))
+					return (free_array(line_tab),
 						ft_putstr_fd("Error: Texture init!", 2), false);
+				i++;
 			}
-			else if (ft_strncmp(line[j], "F", 1) == 0
-				|| ft_strncmp(line[j], "C", 1) == 0)
+			else if (ft_strncmp(line_tab[j], "F", 1) == 0
+				|| ft_strncmp(line_tab[j], "C", 1) == 0)
 			{
-				if (init_colors(line[j], line[j + 1], &map))
-					i++;
-				else
-					return (free(line), free_array(line_tab),
+				if (!init_colors(line_tab[j], line_tab[j + 1], &map))
+					return (free_array(line_tab),
 						ft_putstr_fd("Error: Color init!", 2), false);
+				i++;
 			}
-			free_array(line_tab);
-			free(line);
-			if (i == 5)
-				break ;
+			else
+				return (free_array(line_tab),
+					ft_putstr_fd("Error: Invalid texture/color format!\n",
+						2), false);
+			j += 2;
 		}
+		if (line_tab[j] != NULL)
+		{
+			free_array(line_tab);
+			return (
+				ft_putstr_fd("Error: Incomplete texture/color definition!\n", 2),
+				false);
+		}
+		free_array(line_tab);
 	}
 	return (true);
 }
@@ -71,13 +83,14 @@ bool	parsing(char **av, int ac, t_cub *data)
 		return (ft_putstr_fd("Error on arguments!\n", 2), false);
 	while (av[1][i])
 		i++;
-	if (i >= 4 && ft_stnrcmp(av[1] + i - 4, ".cub", 4) == 0)
+	if (i >= 4 && ft_strncmp(av[1] + i - 4, ".cub", 4) == 0)
 		;
 	else
 		return (ft_putstr_fd("Error map is not \".cub\"!\n", 2), false);
 	raw_map = open(av[1], O_RDONLY);
 	if (raw_map < 0)
-		return (ft_putstr_fd("Error can't open the map!\n", 2), false);
+		return (ft_putstr_fd("Error can't open the map!\n", 2),
+			close(raw_map), false);
 	if (!init_textures_colors(raw_map, data->map))
 		return (ft_putstr_fd("Error on textures initialization!\n", 2), false);
 	if (!init_map(raw_map, data->map))
