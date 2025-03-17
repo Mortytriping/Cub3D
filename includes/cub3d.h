@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 17:02:40 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:09:54 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ typedef struct	s_map
 	char		*tex_ea;
 	t_colors	*floor;
 	t_colors	*sky;
-	int			width;
-    int			height;
-}	t_map;
+	int   		width;
+	int			height;
+} t_map;
 
 /*---------------main data structure---------------*/
 
@@ -107,7 +107,7 @@ int	keyboard_events(int keycode, t_envx *envx);
 void	raycaster(t_cub *data);
 
 /*----Rendering----*/
-int		render_next_frame(void *data);
+int		render_next_frame(t_cub *data);
 
 /*------utils------*/
 void	err_msg(char *str);
