@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
+#    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/18 16:19:03 by apouesse         ###   ########.fr        #
+#    Updated: 2025/03/18 16:23:05 by abaroukh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ SRCS = srcs/main.c \
 	srcs/freeing/uninit_data.c \
 	srcs/init_data/init_data.c \
 	srcs/Inputs/inputs.c \
+	srcs/Parsing/parsing.c srcs/Parsing/init_tex_colors.c\
+	srcs/Parsing/init_map.c srcs/Parsing/check_map.c\
 	srcs/player/player.c \
 	srcs/Raycasting/raycasting_1.c \
 	srcs/Rendering/rendering.c \
@@ -42,8 +44,7 @@ SRCS = srcs/main.c \
 	srcs/utils/utils_1.c \
 
 TOTAL = $(words $(SRCS))
-# srcs/Parsing/parsing.c srcs/Parsing/init_tex_colors.c\
-# srcs/Parsing/init_map.c srcs/Parsing/check_map.c\
+
 
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Werror -Wall -Wextra -g3

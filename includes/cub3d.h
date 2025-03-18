@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 16:19:34 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:23:32 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 # include <stdbool.h>
-// # include "parsing.h"
+# include "parsing.h"
 # include <X11/X.h>
 
 /*---------------------Macros---------------------*/
@@ -77,6 +77,7 @@ typedef struct s_player
 {
 	float	px;
 	float	py;
+	char	orientation;
 	bool	moove_up;
 	bool	moove_left;
 	bool	moove_down;

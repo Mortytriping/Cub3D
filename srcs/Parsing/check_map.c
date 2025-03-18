@@ -25,10 +25,9 @@ bool	check_player(char **map, t_cub *data, int player)
 				|| map[i][j] == "E" || map[i][j] == "W")
 			{
 				player++;
-				data->p1->px = j;
+				data->p1->py = j;
 				data->p1->px = i;
-				// data->p1->orientation = map[i][j];
-				// hello
+				data->p1->orientation = map[i][j];
 			}
 			j++;
 		}
