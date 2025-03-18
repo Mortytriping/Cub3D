@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 16:27:31 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:41:06 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@
 /*---------------------Macros---------------------*/
 
 # define WIN_W 1024
-# define WIN_H 512
+# define WIN_H 720
 
 
 # define W 119
 # define A 97
 # define S 115
 # define D 100
+# define LEFT 65361
+# define RIGHT 65363
 
 # define PI 3.141592653589
 
@@ -78,10 +80,13 @@ typedef struct s_player
 	float	px;
 	float	py;
 	char	orientation;
+	float	pov;
 	bool	moove_up;
 	bool	moove_left;
 	bool	moove_down;
 	bool	moove_right;
+	bool	rotate_left;
+	bool	rotate_right;
 }	t_player;
 
 typedef struct	s_map

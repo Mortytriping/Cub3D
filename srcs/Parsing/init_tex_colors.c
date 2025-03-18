@@ -6,7 +6,7 @@ bool	init_colors(char *f_or_c, char *color, t_map *map)
 	int		i;
 
 	i = 0;
-	colors = ft_split(color, 'c');
+	colors = ft_split(color, ',');
 	if (!colors)
 		return (false);
 	while (colors[i])

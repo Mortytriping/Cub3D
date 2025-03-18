@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
+#    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/18 16:38:39 by abaroukh         ###   ########.fr        #
+#    Updated: 2025/03/18 17:43:41 by apouesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRCS = srcs/main.c \
 	srcs/utils/mlx_utils/mlx_utils_1.c \
 	srcs/utils/utils_1.c \
 
-TOTAL = $(words $(SRCS))
+TOTAL = ($(words $(SRCS)))
 
 
 OBJS = $(SRCS:.c=.o)
@@ -76,7 +76,7 @@ $(NAME) : $(LIBFT) $(MLX) $(OBJS)
 	  pos=$$(( (width - $${#text}) / 2 )); \
 	  new_bar=$${bar:0:$$pos}$${text}$${bar:$$((pos + $${#text}))}; \
 	  printf "\rCompilation en cours: ⏳[%s]⏳" "$$new_bar"; \
-	  sleep 0.1; \
+	  sleep 0.01; \
 	done;
 	@$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(LIBFT_DIR) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L/usr/lib -I$(MLX_DIR) -lXext -lX11 -lm -lz -o $(NAME) && \
 	echo -e "\n$(GREEN)🔥Compilation done!🔥$(RESET)" || \

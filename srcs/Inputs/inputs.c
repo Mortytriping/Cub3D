@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:59:00 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 16:08:13 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:46:46 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int	key_press(int keycode, t_cub *data)
 		data->p1->moove_down = true;
 	if (keycode == D)
 		data->p1->moove_right = true;
+	if (keycode == LEFT)
+		data->p1->rotate_left = true;
+	if (keycode == RIGHT)
+		data->p1->rotate_right = true;
 	if (keycode == 65307)
 		mlx_loop_end(data->envx->mlx);
 	return (0);
@@ -45,5 +49,9 @@ int	key_release(int keycode, t_cub *data)
 		data->p1->moove_down = false;
 	if (keycode == D)
 		data->p1->moove_right = false;
+	if (keycode == LEFT)
+		data->p1->rotate_left = false;
+	if (keycode == RIGHT)
+		data->p1->rotate_right = false;
 	return (0);
 }

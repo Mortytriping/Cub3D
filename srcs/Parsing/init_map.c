@@ -30,7 +30,7 @@ bool	init_map(int fd, t_map *map, t_cub *data)
 
 	huge_very_huge_tab = malloc(sizeof(char *) * 10000);
 	if (!huge_very_huge_tab)
-		return (NULL);
+		return (false);
 	x = 0;
 	line = get_next_line(fd);
 	while (line[0] == '\n')
