@@ -2,11 +2,11 @@
 
 bool	init_colors(char *f_or_c, char *color, t_map *map)
 {
-	char	*colors;
+	char	**colors;
 	int		i;
 
 	i = 0;
-	colors = ft_split(color, ",");
+	colors = ft_split(color, 'c');
 	if (!colors)
 		return (false);
 	while (colors[i])
@@ -68,7 +68,6 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 	char	*line;
 	char	**line_tab;
 	int		j;
-	char	*texture;
 
 	while (i < 6)
 	{
@@ -80,7 +79,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 		line = ft_strtrim(line, " \n");
 		if (!line)
 			return (ft_putstr_fd("Error: Memory issue!\n", 2), false);
-		line_tab = ft_split(line, " ");
+		line_tab = ft_split(line, ' ');
 		free(line);
 		if (!line_tab)
 			return (ft_putstr_fd("Error: Memory issue!\n", 2), false);
@@ -91,7 +90,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 				|| ft_strncmp(line_tab[j], "WE", 2) == 0
 				|| ft_strncmp(line_tab[j], "EA", 2) == 0)
 			{
-				if (!init_textures(line_tab[j], line_tab[j + 1], &map))
+				if (!init_textures(line_tab[j], line_tab[j + 1], map))
 					return (free_array(line_tab),
 						ft_putstr_fd("Error: Texture init!", 2), false);
 				i++;
@@ -99,7 +98,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			else if (ft_strncmp(line_tab[j], "F", 1) == 0
 				|| ft_strncmp(line_tab[j], "C", 1) == 0)
 			{
-				if (!init_colors(line_tab[j], line_tab[j + 1], &map))
+				if (!init_colors(line_tab[j], line_tab[j + 1], map))
 					return (free_array(line_tab),
 						ft_putstr_fd("Error: Color init!", 2), false);
 				i++;

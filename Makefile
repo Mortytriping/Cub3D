@@ -6,7 +6,7 @@
 #    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/18 16:23:05 by abaroukh         ###   ########.fr        #
+#    Updated: 2025/03/18 16:38:39 by abaroukh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ $(NAME) : $(LIBFT) $(MLX) $(OBJS)
 	  printf "\rCompilation en cours: ⏳[%s]⏳" "$$new_bar"; \
 	  sleep 0.1; \
 	done;
-	@$(CC) $(CFLAGS) -I/include -I/libft $(OBJS) -Llibft -Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) && \
+	@$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(LIBFT_DIR) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L/usr/lib -I$(MLX_DIR) -lXext -lX11 -lm -lz -o $(NAME) && \
 	echo -e "\n$(GREEN)🔥Compilation done!🔥$(RESET)" || \
 	{ echo -e "\n$(RED)Compilation failed!$(RESET)"; exit 1; }
 

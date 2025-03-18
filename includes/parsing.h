@@ -3,6 +3,10 @@
 
 # include <stdbool.h>
 # include "cub3d.h"
+# include "../libft/libft.h"
+
+typedef struct s_cub	t_cub;
+typedef struct s_map	t_map;
 
 /*---------------parsing---------------*/
 

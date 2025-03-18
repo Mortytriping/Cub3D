@@ -6,13 +6,13 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:40:27 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/01/09 14:52:15 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:50:26 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	int	i;
 
