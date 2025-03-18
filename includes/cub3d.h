@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 11:13:43 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:09:34 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 # include <stdbool.h>
-# include "parsing.h"
 
 /*---------------mlx_init_structures---------------*/
 
