@@ -28,6 +28,7 @@ bool	check_player(char **map, t_cub *data, int player)
 				data->p1->px = j;
 				data->p1->px = i;
 				// data->p1->orientation = map[i][j];
+				// hello
 			}
 			j++;
 		}
