@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 15:56:21 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:03:48 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_img(t_cub *data, int img)
 {
-	data->img[img].img = mlx_new_image(data->envx->mlx, 1920, 1080);
+	data->img[img].img = mlx_new_image(data->envx->mlx, WIN_W, WIN_H);
 	if (!data->img[img].img)
 	{
 		mlx_clear_window(data->envx->mlx, data->envx->mlx_win);
@@ -42,7 +42,7 @@ void	init_img(t_cub *data, int img)
 
 void	init_win_img(t_cub *data)
 {
-	data->envx->mlx_win = mlx_new_window(data->envx->mlx, 1920, 1080, "Cub3d");
+	data->envx->mlx_win = mlx_new_window(data->envx->mlx, WIN_W, WIN_H, "Cub3d");
 	if (!data->envx->mlx_win)
 	{
 		mlx_destroy_display(data->envx->mlx);
@@ -61,6 +61,8 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x >= WIN_W || y >= WIN_H || x < 0 || y < 0)
+		return;
 	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }

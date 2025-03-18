@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 16:09:34 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:19:34 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,27 @@
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 # include <stdbool.h>
+// # include "parsing.h"
+# include <X11/X.h>
+
+/*---------------------Macros---------------------*/
+
+# define WIN_W 1024
+# define WIN_H 512
+
+
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+
+# define PI 3.141592653589
+
+/*-------------Player settings------------*/
+
+# define SPEED 2
+
+/*-------------Player settings end------------*/
 
 /*---------------mlx_init_structures---------------*/
 
@@ -56,6 +77,10 @@ typedef struct s_player
 {
 	float	px;
 	float	py;
+	bool	moove_up;
+	bool	moove_left;
+	bool	moove_down;
+	bool	moove_right;
 }	t_player;
 
 typedef struct	s_map
@@ -99,9 +124,15 @@ void	last_free_uninit_data(t_cub *data);
 t_cub	*init_data(void);
 
 /*-----inputs-----*/
-int	keyboard_events(int keycode, t_envx *envx);
+int		keyboard_events(int keycode, t_cub *data);
+int		key_release(int keycode, t_cub *data);
+int		key_press(int keycode, t_cub *data);
 
 /*-----parsing-----*/
+
+/*-----player-----*/
+void	init_player(t_cub *data);
+void	moove_player(t_cub *data);
 
 /*---Raycasting---*/
 void	raycaster(t_cub *data);

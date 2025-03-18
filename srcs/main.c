@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 17:11:19 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:02:14 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void testing_map(t_cub *data)
 		NULL
 	};
 	data->map->map = simulated_map;
+	data->map->height = 5;
+	data->map->width = 6;
 	data->map->floor->color = create_trgb(255, 0, 255, 0);
 	data->map->sky->color = create_trgb(255, 50, 0, 255);
 }
@@ -35,12 +37,14 @@ int	main(int ac, char **av)
 	(void)ac;
 	data = init_data();
 	testing_map(data);
-	parsing(av, ac, data);
+	// parsing(av, ac, data);
 	data->envx->mlx = mlx_init();
 	if (!data->envx->mlx)
 		return (err_msg("fatal error on mlx\n"), last_free_uninit_data(data), 1);
 	init_win_img(data); //creation image[0 et 1] avec img[0] sur la window
-	mlx_key_hook(data->envx->mlx_win, keyboard_events, data->envx);
+	mlx_hook(data->envx->mlx_win, 2, 1L<<0, key_press, data);
+	mlx_hook(data->envx->mlx_win, KeyRelease, KeyReleaseMask, key_release, data);
+	// mlx_key_hook(data->envx->mlx_win, keyboard_events, data);
 	mlx_loop_hook(data->envx->mlx, render_next_frame, data);
 	mlx_hook(data->envx->mlx_win, 17, 0, close_win, data->envx);
 	mlx_loop(data->envx->mlx);
