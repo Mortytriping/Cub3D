@@ -60,8 +60,8 @@ bool	valid_map(char **huge_tab, t_map *map, t_cub *data)
 	if (!map->map)
 		return (false);
 	find_maxs(map);
-	// if (!check_borders(map->map, data))
-	// 	return (false);
+	if (!check_borders(map->map, data))
+		return (false);
 	if (!check_inside(map->map))
 		return (false);
 	if (!check_player(map->map, data, 0))

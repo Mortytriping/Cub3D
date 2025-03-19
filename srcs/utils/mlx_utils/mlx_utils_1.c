@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 11:03:48 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:38:50 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_img(t_cub *data, int img)
 		mlx_destroy_display(data->envx->mlx);
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
-		err_msg("fatal error on mlx\n");
+		err_msg("Fatal error on mlx\n");
 		exit(1);
 	}
 	data->img[img].addr = mlx_get_data_addr(data->img[img].img,
@@ -35,7 +35,7 @@ void	init_img(t_cub *data, int img)
 		mlx_destroy_display(data->envx->mlx);
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
-		err_msg("fatal error on mlx\n");
+		err_msg("Fatal error on mlx\n");
 		exit(1);
 	}
 }
@@ -48,7 +48,7 @@ void	init_win_img(t_cub *data)
 		mlx_destroy_display(data->envx->mlx);
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
-		err_msg("fatal error on mlx\n");
+		err_msg("Fatal error on mlx\n");
 		exit(1);
 	}
 	init_img(data, 0);
@@ -62,7 +62,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	char	*dst;
 
 	if (x >= WIN_W || y >= WIN_H || x < 0 || y < 0)
-		return;
+		return ;
 	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }

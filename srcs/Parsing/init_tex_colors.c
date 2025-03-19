@@ -74,15 +74,14 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 		j = 0;
 		line = get_next_line(fd);
 		if (!line)
-			return (ft_putstr_fd("Error: Missing texture/color data!\n", 2),
-				false);
+			return (err_msg("Missing texture/color data!"), false);
 		line = ft_strtrim(line, " \n");
 		if (!line)
-			return (ft_putstr_fd("Error: Memory issue!\n", 2), false);
+			return (err_msg("Memory issue!"), false);
 		line_tab = ft_split(line, ' ');
 		free(line);
 		if (!line_tab)
-			return (ft_putstr_fd("Error: Memory issue!\n", 2), false);
+			return (err_msg("Memory issue!"), false);
 		while (line_tab[j] && line_tab[j + 1])
 		{
 			if (ft_strncmp(line_tab[j], "NO", 2) == 0
@@ -92,7 +91,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			{
 				if (!init_textures(line_tab[j], line_tab[j + 1], map))
 					return (free_array(line_tab),
-						ft_putstr_fd("Error: Texture init!", 2), false);
+						err_msg("Texture init!"), false);
 				i++;
 			}
 			else if (ft_strncmp(line_tab[j], "F", 1) == 0
@@ -100,19 +99,17 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			{
 				if (!init_colors(line_tab[j], line_tab[j + 1], map))
 					return (free_array(line_tab),
-						ft_putstr_fd("Error: Color init!", 2), false);
+						err_msg("Color init!"), false);
 				i++;
 			}
 			else
 				return (free_array(line_tab),
-					ft_putstr_fd("Error: Invalid texture/color format!\n",
-						2), false);
+					err_msg("Invalid texture/color format!"), false);
 			j += 2;
 		}
 		if (line_tab[j] != NULL)
-			return (free_array(line_tab),
-				ft_putstr_fd("Error: Incomplete texture/color definition!\n", 2),
-				false);
+			return (free_array(line_tab), err_msg("Incomplete texture/color\
+					definition!"), false);
 		free_array(line_tab);
 	}
 	return (true);

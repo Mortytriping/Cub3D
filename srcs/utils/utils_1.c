@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:41:30 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/19 11:54:38 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:34:50 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 void	err_msg(char *str)
 {
-	size_t	i;
-	int		ret;
-
-	i = 0;
-	while (str && str[i])
-	{
-		ret = write(2, &str[i], 1);
-		i++;
-	}
-	(void)ret;
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
 }
 
 void	free_array(char **array)

@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 18:28:34 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/19 11:53:16 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:36:32 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_data_extension2(t_cub *data)
 		free(data->p1);
 		free(data->map);
 		free(data);
-		err_msg("error: malloc fatal fail at init_data.c!\n");
+		err_msg("Malloc fatal fail at init_data.c!");
 		exit (1);
 	}
 	data->map->sky = malloc(sizeof(t_colors));
@@ -32,7 +32,7 @@ void	init_data_extension2(t_cub *data)
 		free(data->map->floor);
 		free(data->map);
 		free(data);
-		err_msg("error: malloc fatal fail at init_data.c!\n");
+		err_msg("Malloc fatal fail at init_data.c!");
 		exit (1);
 	}
 }
@@ -44,7 +44,7 @@ void	init_data_extension(t_cub *data)
 	{
 		free(data->envx);
 		free(data);
-		err_msg("error: malloc fatal fail at init_data.c!\n");
+		err_msg("Malloc fatal fail at init_data.c!");
 		exit (1);
 	}
 	init_player(data);
@@ -54,7 +54,7 @@ void	init_data_extension(t_cub *data)
 		free(data->envx);
 		free(data->p1);
 		free(data);
-		err_msg("error: malloc fatal fail at init_data.c!\n");
+		err_msg("Malloc fatal fail at init_data.c!");
 		exit (1);
 	}
 	init_data_extension2(data);
@@ -68,14 +68,14 @@ t_cub	*init_data(void)
 	data = malloc(sizeof(t_cub));
 	if (!data)
 	{
-		err_msg("error: malloc fatal fail at init_data.c!\n");
+		err_msg("Malloc fatal fail at init_data.c!");
 		exit (1);
 	}
 	data->envx = malloc(sizeof(t_envx));
 	if (!data->envx)
 	{
 		free(data);
-		err_msg("error: malloc fatal fail at init_data.c!\n");
+		err_msg("Malloc fatal fail at init_data.c!");
 		exit (1);
 	}
 	init_data_extension(data);

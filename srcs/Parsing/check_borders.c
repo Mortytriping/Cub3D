@@ -71,9 +71,11 @@ bool	check_sides(char **map, t_cub *data)
 
 bool	check_borders(char **map, t_cub *data)
 {
-	if (!check_top_bottom(map, data))
-		return (false);
-	if (!check_sides(map, data))
-		return (false);
+	(void)map;
+	(void)data;
+	// if (!check_top_bottom(map, data))
+	// 	return (false);
+	// if (!check_sides(map, data))
+	// 	return (false);
 	return (true);
 }
