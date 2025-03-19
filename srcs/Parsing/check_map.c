@@ -1,10 +1,5 @@
 #include "../../includes/cub3d.h"
 
-// bool	check_borders(char **map)
-// {
-// 	return (true);
-// }
-
 // bool	check_inside(char **map)
 // {
 // 	return (true);
