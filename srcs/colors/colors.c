@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:35:38 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/17 14:24:18 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:53:07 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	trunc_error_rgb(int *t, int *r, int *g, int *b)
 		*g = 0;
 	if (*g > 255)
 		*g = 255;
-	if (b < 0)
+	if (*b < 0)
 		*b = 0;
 	if (*b > 255)
 		*b = 255;

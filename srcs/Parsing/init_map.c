@@ -9,7 +9,6 @@ char	**cpy_map(char **huge_tab, t_map *map)
 	j = 0;
 	while (huge_tab[i])
 		i++;
-	map->height = i;
 	map->map = malloc(sizeof(char *) * (i + 1));
 	if (!map->map)
 		return (free_array(huge_tab), NULL);

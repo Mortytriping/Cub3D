@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 18:28:34 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 12:14:32 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:53:16 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	init_data_extension(t_cub *data)
 	data->p1 = malloc(sizeof(t_player));
 	if (!data->p1)
 	{
-		free(data);
 		free(data->envx);
+		free(data);
 		err_msg("error: malloc fatal fail at init_data.c!\n");
 		exit (1);
 	}
@@ -51,9 +51,9 @@ void	init_data_extension(t_cub *data)
 	data->map = malloc(sizeof(t_map));
 	if (!data->map)
 	{
-		free(data);
 		free(data->envx);
 		free(data->p1);
+		free(data);
 		err_msg("error: malloc fatal fail at init_data.c!\n");
 		exit (1);
 	}

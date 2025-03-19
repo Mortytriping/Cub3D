@@ -17,7 +17,9 @@ bool	parsing(char **av, int ac, t_cub *data);
 char	**cpy_map(char **huge_tab, t_map *map);
 bool	init_map(int fd, t_map *map, t_cub *data);
 
-bool	check_borders(char **map);
+void	find_maxs(t_map *map);
+bool	check_inside(char **map);
+bool	check_borders(char **map, t_cub *data);
 bool	check_player(char **map, t_cub *data, int player);
 bool	valid_map(char **huge_tab, t_map *map, t_cub *data);
 
