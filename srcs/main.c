@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/19 15:35:39 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:42:32 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int ac, char **av)
 	
 	if(!parsing(av, ac, data))
 		return (last_free_uninit_data(data), 1);
+	printf("w = %d, h = %d\n", data->map->height, data->map->width);
 	data->envx->mlx = mlx_init();
 	if (!data->envx->mlx)
 		return (err_msg("Fatal error on mlx"), last_free_uninit_data(data), 1);

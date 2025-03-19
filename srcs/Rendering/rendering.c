@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 18:21:03 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:58:52 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,16 @@ void	draw_map(t_cub *data)
 	}
 }
 
-
 bool	touch_wall(t_cub *data, int px, int py)
 {
 	int x = px / 64;
 	int y = py / 64;
-	if (y > data->map->width || x > data->map->height || y < 0 || x < 0)
+	if (x > data->map->width - 1 || y > data->map->height - 1 || y < 0 || x < 0)
 		return (true);
 	if (data->map->map[y][x] == '1')
 		return (true);
 	return (false);
 }
-
 
 int	render_next_frame(t_cub *data)
 {
