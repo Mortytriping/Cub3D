@@ -28,14 +28,74 @@ bool	check_inside(char **map)
 	return (true);
 }
 
-bool	check_top_bottom(char **map, t_cub *data)
+// bool	check_top_bottom(char **map, t_cub *data)
+// {
+// 	int	j;
+
+// 	j = 0;
+// 	while (map[0][j])
+// 	{
+// 		if (map[0][j] != '1' && map[0][j] != ' ')
+// 			return (false);
+// 		j++;
+// 	}
+// 	j = 0;
+// 	while (map[data->map->height - 1][j])
+// 	{
+// 		if (map[data->map->height - 1][j] != '1'
+// 			&& map[data->map->height - 1][j] != ' ')
+// 			return (false);
+// 		j++;
+// 	}
+// 	return (true);
+// }
+
+// bool	check_sides(char **map, t_cub *data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < data->map->height)
+// 	{
+// 		if ((int)ft_strlen(map[i]) < data->map->width)
+// 			return (false);
+// 		if (map[i][0] != '1' && map[i][0] != ' ')
+// 			return (false);
+// 		if (map[i][data->map->width - 1] != '1'
+// 			&& map[i][data->map->width - 1] != ' ')
+// 			return (false);
+// 		i++;
+// 	}
+// 	return (true);
+// }
+
+bool	check_borders(char **map, t_cub *data)
 {
+	int	i;
 	int	j;
 
+	i = 1;
+	while (i < (data->map->height - 1))
+	{
+		j = 1;
+		while (map[i][j])
+		{
+			if (map[i][j] == ' ')
+			{
+				if ((map[i + 1][j] && map[i + 1][j] != '1' && map[i + 1][j] != ' ')
+					|| (map[i - 1][j] && map[i - 1][j] != '1' && map[i - 1][j] != ' ')
+					|| (map[i][j + 1] && map[i][j + 1] != '1' && map[i][j + 1] != ' ')
+					|| (map[i][j - 1] && map[i][j - 1] != '1' && map[i][j - 1] != ' '))
+					return (false);
+			}
+			j++;
+		}
+		i++;
+	}
 	j = 0;
 	while (map[0][j])
 	{
-		if (map[0][j] != '1' && map[0][j] != ' ')
+		if (map[0][j] != '1' && map[0][j] != ' ' && map[0][j] != '\n')
 			return (false);
 		j++;
 	}
@@ -43,39 +103,23 @@ bool	check_top_bottom(char **map, t_cub *data)
 	while (map[data->map->height - 1][j])
 	{
 		if (map[data->map->height - 1][j] != '1'
-			&& map[data->map->height - 1][j] != ' ')
+			&& map[data->map->height - 1][j] != ' '
+			&& map[data->map->height - 1][j] != '\n')
 			return (false);
 		j++;
 	}
-	return (true);
-}
-
-bool	check_sides(char **map, t_cub *data)
-{
-	int	i;
-
 	i = 0;
-	while (i < data->map->height)
+	while (map[i])
 	{
-		if ((int)ft_strlen(map[i]) < data->map->width)
-			return (false);
-		if (map[i][0] != '1' && map[i][0] != ' ')
+		if (map[i][0] != '1' && map[i][0] != ' ' && map[i][0] != 0)
 			return (false);
 		if (map[i][data->map->width - 1] != '1'
-			&& map[i][data->map->width - 1] != ' ')
+			&& map[i][data->map->width - 1] != ' '
+			&& map[i][data->map->width - 1] != 0)
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-bool	check_borders(char **map, t_cub *data)
-{
-	(void)map;
-	(void)data;
-	// if (!check_top_bottom(map, data))
-	// 	return (false);
-	// if (!check_sides(map, data))
-	// 	return (false);
-	return (true);
-}
+
