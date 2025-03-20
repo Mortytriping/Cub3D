@@ -6,7 +6,7 @@
 /*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/20 14:13:46 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:44:18 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,23 @@ bool	ray_touch_wall(t_cub *data, int px, int py)
 	return (false);
 }
 
-float distance(float x, float y)
+float clc_dist(float x, float y)
 {
 	return (sqrt((x * x) + (y * y)));
+}
+
+float	distance(t_cub *data, float ray_x, float ray_y)
+{
+	float	delta_x;
+	float	delta_y;
+	float	angle;
+	float	fix_dist;
+
+	delta_x = ray_x - data->p1->px;
+	delta_y = ray_y - data->p1->py;
+	angle = atan2(delta_y, delta_x) - data->p1->pov;
+	fix_dist = clc_dist(delta_x, delta_y) * cos(angle);
+	return (fix_dist);
 }
 
 void	draw_rays(t_cub *data, float start_x, int i)
@@ -52,7 +66,7 @@ void	draw_rays(t_cub *data, float start_x, int i)
 		ray_y += sin_pov;
 	}
 	(void)i; 
-	dist = distance((ray_x - data->p1->px), (ray_y - data->p1->py));
+	dist = distance(data, ray_x, ray_y);
 	height = (SCALE_BLOCK / dist) * (WIN_W / 2);
 	start_y = (WIN_H - height) / 2;
 	end = start_y + height;
