@@ -6,7 +6,7 @@
 /*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/19 15:17:12 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:15:06 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-# define PI 3.141592653589
+# define PI 3.14159265359
+# define RD 0.01745329
 
-/*-------------Player settings------------*/
+/*-------------settings------------*/
 
-# define SPEED 1.3
+# define FOV 60
+# define SCALE_BLOCK 16
+# define SPEED 0.3
 
 /*-------------Player settings end------------*/
 
@@ -142,9 +145,11 @@ void	moove_player(t_cub *data);
 
 /*---Raycasting---*/
 void	raycaster(t_cub *data);
+void	draw_rays(t_cub *data, float start_x, int i);
 
 /*----Rendering----*/
 int		render_next_frame(t_cub *data);
+void	draw_cercle(t_cub *data, int cx, int cy, int size, int color);
 
 /*------utils------*/
 void	err_msg(char *str);
