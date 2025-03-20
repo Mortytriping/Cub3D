@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 # include "cub3d.h"
+# include <limits.h>
 # include "../libft/libft.h"
 
 typedef struct s_cub	t_cub;
@@ -29,5 +30,9 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i);
 
 bool	init_colors(char *f_or_c, char *color, t_map *map);
 bool	init_textures(char *tex_orientation, char *tex_path, t_map *map);
+
+/*---------------utils for parsing---------------*/
+
+long	ft_atol(const char *nptr);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/19 11:08:19 by abaroukh         ###   ########.fr        #
+#    Updated: 2025/03/20 16:48:43 by abaroukh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS = srcs/main.c \
 	srcs/Inputs/inputs.c \
 	srcs/Parsing/parsing.c srcs/Parsing/init_tex_colors.c\
 	srcs/Parsing/init_map.c srcs/Parsing/check_map.c\
-	srcs/Parsing/check_borders.c\
+	srcs/Parsing/check_borders.c srcs/Parsing/init_tex_colors_utils.c\
 	srcs/player/player.c \
 	srcs/Raycasting/raycasting_1.c \
 	srcs/Rendering/rendering.c \

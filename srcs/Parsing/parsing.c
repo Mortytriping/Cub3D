@@ -1,18 +1,5 @@
 #include "../../includes/cub3d.h"
 
-// input = ./cub3d ARG_FD
-
-// 2 blocks :
-
-// - Directions texture (NO/SO/WE/EA)&& FLOOR COLOR (F) + SKY COLOR (C)
-	// can be on a single line as on multiple line (with spaces)
-// - MAP (1 = WALL, 0 = CAN NAVIGATE, N S W E = spawn looking in direction)
-	// all borders should be 1
-	// inside the 1, only 0 and one time the camera with the direction
-	// outside of the 1, spaces are ok
-	// a 0 is strictly bordered by either 0 or 1 or spawn, no spaces
-	// same for the spawn, only 0 or 1
-
 bool	parsing(char **av, int ac, t_cub *data)
 {
 	int		raw_map;

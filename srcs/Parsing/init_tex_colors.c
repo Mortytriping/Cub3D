@@ -10,27 +10,35 @@ bool	init_colors(char *f_or_c, char *color, t_map *map)
 	if (!colors)
 		return (false);
 	while (colors[i])
+	{
+		if (ft_strlen(colors[i]) > 11)
+			return (false);
 		i++;
+	}
 	if (i != 3)
 		return (false);
 	if (ft_strncmp(f_or_c, "F", 1) == 0)
 	{
 		map->floor->t = 255;
-		map->floor->r = ft_atoi(colors[0]);
-		map->floor->g = ft_atoi(colors[1]);
-		map->floor->b = ft_atoi(colors[2]);
+		map->floor->r = ft_atol(colors[0]);
+		map->floor->g = ft_atol(colors[1]);
+		map->floor->b = ft_atol(colors[2]);
 		map->floor->color = create_trgb(map->floor->t, map->floor->r,
 				map->floor->g, map->floor->b);
 	}
 	else if (ft_strncmp(f_or_c, "C", 1) == 0)
 	{
 		map->sky->t = 255;
-		map->sky->r = ft_atoi(colors[0]);
-		map->sky->g = ft_atoi(colors[1]);
-		map->sky->b = ft_atoi(colors[2]);
+		map->sky->r = ft_atol(colors[0]);
+		map->sky->g = ft_atol(colors[1]);
+		map->sky->b = ft_atol(colors[2]);
 		map->sky->color = create_trgb(map->sky->t, map->sky->r,
 				map->sky->g, map->sky->b);
 	}
+	if (ft_atol(colors[0]) > INT_MAX || ft_atol(colors[0]) < INT_MIN
+		|| ft_atol(colors[1]) > INT_MAX || ft_atol(colors[1]) < INT_MIN
+		|| ft_atol(colors[2]) > INT_MAX || ft_atol(colors[2]) < INT_MIN)
+		return (false);
 	return (true);
 }
 
@@ -108,8 +116,8 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			j += 2;
 		}
 		if (line_tab[j] != NULL)
-			return (free_array(line_tab), err_msg("Incomplete texture/color\
-					definition!"), false);
+			return (free_array(line_tab),
+				err_msg("Incomplete texture/color definition!"), false);
 		free_array(line_tab);
 	}
 	return (true);
