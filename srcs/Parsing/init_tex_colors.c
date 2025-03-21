@@ -44,6 +44,8 @@ bool	init_colors(char *f_or_c, char *color, t_map *map)
 
 bool	init_textures(char *tex_orientation, char *tex_path, t_map *map)
 {
+	// if (!tex_path || !valid_path(tex_path))
+	// 	return (false);
 	if (ft_strncmp(tex_orientation, "NO", 2) == 0)
 	{
 		map->tex_no = ft_strdup(tex_path);
@@ -86,7 +88,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 		line = ft_strtrim(line, " \n");
 		if (!line)
 			return (err_msg("Memory issue!"), false);
-		line_tab = ft_split(line, ' ');
+		line_tab = ft_split_sp1(line);
 		free(line);
 		if (!line_tab)
 			return (err_msg("Memory issue!"), false);

@@ -1,3 +1,8 @@
 ./.vscode
 .vscode
 *.o
+libft.a
+cub3D
+mlx-test
+libmlx_Linux.a
+libmlx.a

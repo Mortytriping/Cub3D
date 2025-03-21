@@ -28,11 +28,14 @@ bool	valid_map(char **huge_tab, t_map *map, t_cub *data);
 
 bool	dispatch_textures_colors(int fd, t_map *map, int i);
 
+bool	valid_path(char *texture);
 bool	init_colors(char *f_or_c, char *color, t_map *map);
 bool	init_textures(char *tex_orientation, char *tex_path, t_map *map);
 
 /*---------------utils for parsing---------------*/
 
 long	ft_atol(const char *nptr);
+char	**ft_split_sp1(char *str);
+
 
 #endif
