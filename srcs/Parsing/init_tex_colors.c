@@ -78,7 +78,15 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 	char	*line;
 	char	**line_tab;
 	int		j;
+	int		seen[6];
 
+
+	j = 0;
+	while (j < 6)
+	{
+		seen[j] = 0;
+		j++;
+	}
 	while (i < 6)
 	{
 		j = 0;
@@ -94,27 +102,45 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			return (err_msg("Memory issue!"), false);
 		while (line_tab[j] && line_tab[j + 1])
 		{
-			if (ft_strncmp(line_tab[j], "NO", 2) == 0
-				|| ft_strncmp(line_tab[j], "SO", 2) == 0
-				|| ft_strncmp(line_tab[j], "WE", 2) == 0
-				|| ft_strncmp(line_tab[j], "EA", 2) == 0)
+			if (ft_strncmp(line_tab[j], "NO", 2) == 0 && ++seen[0] == 1)
 			{
 				if (!init_textures(line_tab[j], line_tab[j + 1], map))
-					return (free_array(line_tab),
-						err_msg("Texture init!"), false);
+					return (free_array(line_tab), err_msg("Texture init!"), false);
 				i++;
 			}
-			else if (ft_strncmp(line_tab[j], "F", 1) == 0
-				|| ft_strncmp(line_tab[j], "C", 1) == 0)
+			else if (ft_strncmp(line_tab[j], "SO", 2) == 0 && ++seen[1] == 1)
+			{
+				if (!init_textures(line_tab[j], line_tab[j + 1], map))
+					return (free_array(line_tab), err_msg("Texture init!"), false);
+				i++;
+			}
+			else if (ft_strncmp(line_tab[j], "WE", 2) == 0 && ++seen[2] == 1)
+			{
+				if (!init_textures(line_tab[j], line_tab[j + 1], map))
+					return (free_array(line_tab), err_msg("Texture init!"), false);
+				i++;
+			}
+			else if (ft_strncmp(line_tab[j], "EA", 2) == 0 && ++seen[3] == 1)
+			{
+				if (!init_textures(line_tab[j], line_tab[j + 1], map))
+					return (free_array(line_tab), err_msg("Texture init!"), false);
+				i++;
+			}
+			else if (ft_strncmp(line_tab[j], "F", 1) == 0 && ++seen[4] == 1)
 			{
 				if (!init_colors(line_tab[j], line_tab[j + 1], map))
-					return (free_array(line_tab),
-						err_msg("Color init!"), false);
+					return (free_array(line_tab), err_msg("Color init!"), false);
+				i++;
+			}
+			else if (ft_strncmp(line_tab[j], "C", 1) == 0 && ++seen[5] == 1)
+			{
+				if (!init_colors(line_tab[j], line_tab[j + 1], map))
+					return (free_array(line_tab), err_msg("Color init!"), false);
 				i++;
 			}
 			else
 				return (free_array(line_tab),
-					err_msg("Invalid texture/color format!"), false);
+					err_msg("Invalid or duplicate texture/color!"), false);
 			j += 2;
 		}
 		if (line_tab[j] != NULL)
@@ -122,5 +148,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 				err_msg("Incomplete texture/color definition!"), false);
 		free_array(line_tab);
 	}
+	if (seen[0] + seen[1] + seen[2] + seen[3] + seen[4] + seen[5] != 6)
+		return (err_msg("Missing or duplicate required texture/color!"), false);
 	return (true);
 }

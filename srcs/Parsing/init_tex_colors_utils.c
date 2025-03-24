@@ -59,7 +59,7 @@ bool	valid_path(char *texture)
 	char	*line;
 
 	i = ft_strlen(texture);
-	if (i >= 4 && ft_strncmp(texture + i - 4, ".cub", 4) == 0)
+	if (i >= 4 && ft_strncmp(texture + i - 4, ".xpm", 4) == 0)
 		;
 	else
 		return (err_msg("Texture is not a \".xpm\" file!"), false);
@@ -67,8 +67,14 @@ bool	valid_path(char *texture)
 	if (fd < 0)
 		return (err_msg("Can't open the texture!"), false);
 	line = get_next_line(fd);
-	if (line[0] == '\0')
+	if (!line || line[0] == '\0')
+	{
+		if (line)
+			free(line);
+		close(fd);
 		return (err_msg("Texture file is empty!"), false);
-	close (fd);
+	}
+	free(line);
+	close(fd);
 	return (true);
 }
