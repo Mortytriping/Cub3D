@@ -6,7 +6,7 @@
 /*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/25 15:56:19 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:56:18 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,35 +77,77 @@ void	draw_rays(t_cub *data, float start_x, int i)
 	}
 }
 
-// void	dda_checker(t_cub *data)
-// {
-// 	int	r;
-// 	int mx;
-// 	int my;
-// 	int mp;
-// 	int dof;
-// 	float rx;
-// 	float ry;
-// 	float ra;
-// 	float xo;
-// 	float yo;
+void	dda_checker(t_cub *data)
+{
+	float	y_step;
+	float	x_step;
+	float	first_x;
+	float	first_y;
+	// float	r_angle;
+	float	tang;
+	float	ray_a;
+	int		ray_nb;
+	int		r_field;
+	int		max_x;
+	int		max_y;
+	int		max_p;
+	
 
-
-// 	ra = data->p1->pov;
-// 	for (r=0;r<1;r++)
-// 	{
-// 		dof = 0;
-// 		float aTan = -1/tan(ra);
-// 		if (ra>PI){ ry=(((int)data->p1->py>>6)<<6)-0.0001; rx = (data->p1->px-ry)*aTan+data->p1->px; yo=-64; xo = -yo*aTan;}//looking up
-// 		if (ra<PI){ ry=(((int)data->p1->py>>6)<<6)+64;     rx = (data->p1->px-ry)*aTan+data->p1->px; yo= 64; xo = -yo*aTan;}//looking down
-// 		if (ra==0 || ra==PI) {rx=data->p1->px; ry=data->p1->py; dof = 8;}
-// 		while (dof<8)
-// 		{
-// 			mx=(int) (rx)>>6; my(int) (ry)>>6; mp=my*mapX+mx;
-// 			if (mp<mapX*mapY && map[mp]==1) { dof=8;}
-// 			else {rx+=xo; ry+=yo; dof+=1;}
-// 		}
-// }
+	r_field = 0;
+	ray_a = data->p1->pov;
+	tang = -1 / tan(ray_a);
+	if (ray_a > PI) //looking down
+	{
+		first_y = (((int)data->p1->py >> 6) << 6) - 0.0001;
+		first_x = data->p1->py - first_y * tang + data->p1->px;
+		y_step = -64;
+		x_step = 64 * tang;
+	}
+	if (ray_a < PI) //looking up
+	{
+		first_y = (((int)data->p1->py >> 6) << 6) +64;
+		first_x = data->p1->py - first_y * tang + data->p1->px;
+		y_step = 64;
+		x_step = -64 * tang;
+	}
+	if (ray_a == 0 || ray_a == PI)
+	{
+		first_x = data->p1->px;
+		first_y = data->p1->py;
+		r_field = 10;
+	}
+	while (r_field < 10)
+	{
+		max_x = (int)(first_x) >> 6;
+		max_y = (int)(first_y) >> 6;
+		max_p = max_y * data->map->width + max_x;
+		if (max_p < data->map->width * data->map->height && data->map->map[max_p] == 1)
+			r_field = 10;
+		else
+		{
+			first_x += x_step;
+			first_y += y_step;
+		}
+		r_field++;
+		// ajouter Bresenham algo
+	}
+	
+	// ra = data->p1->pov;
+	// for (r=0;r<1;r++)
+	// {
+	// 	dof = 0;
+	// 	float aTan = -1/tan(ra);
+	// 	if (ra>PI){ ry=(((int)data->p1->py>>6)<<6)-0.0001; rx = (data->p1->px-ry)*aTan+data->p1->px; yo=-64; xo = -yo*aTan;}//looking up
+	// 	if (ra<PI){ ry=(((int)data->p1->py>>6)<<6)+64;     rx = (data->p1->px-ry)*aTan+data->p1->px; yo= 64; xo = -yo*aTan;}//looking down
+	// 	if (ra==0 || ra==PI) {rx=data->p1->px; ry=data->p1->py; dof = 8;}
+	// 	while (dof<8)
+	// 	{
+	// 		mx=(int) (rx)>>6; my(int) (ry)>>6; mp=my*mapX+mx;
+	// 		if (mp<mapX*mapY && map[mp]==1) { dof=8;}
+	// 		else {rx+=xo; ry+=yo; dof+=1;}
+	// 	}
+	// }
+}
 
 void	raycaster(t_cub *data)
 {
