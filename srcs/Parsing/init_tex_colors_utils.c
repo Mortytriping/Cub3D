@@ -56,7 +56,6 @@ bool	valid_path(char *texture)
 {
 	int		i;
 	int		fd;
-	char	*line;
 
 	i = ft_strlen(texture);
 	if (i >= 4 && ft_strncmp(texture + i - 4, ".xpm", 4) == 0)
@@ -66,15 +65,5 @@ bool	valid_path(char *texture)
 	fd = open(texture, O_RDONLY);
 	if (fd < 0)
 		return (err_msg("Can't open the texture!"), false);
-	line = get_next_line(fd);
-	if (!line || line[0] == '\0')
-	{
-		if (line)
-			free(line);
-		close(fd);
-		return (err_msg("Texture file is empty!"), false);
-	}
-	free(line);
-	close(fd);
 	return (true);
 }
