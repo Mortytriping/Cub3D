@@ -6,7 +6,7 @@
 /*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/20 14:44:18 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:56:19 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	ray_touch_wall(t_cub *data, int px, int py)
 	return (false);
 }
 
-float clc_dist(float x, float y)
+float	clc_dist(float x, float y)
 {
 	return (sqrt((x * x) + (y * y)));
 }
@@ -107,11 +107,7 @@ void	draw_rays(t_cub *data, float start_x, int i)
 // 		}
 // }
 
-
-
 void	raycaster(t_cub *data)
 {
 	(void)data;
 }
-
-

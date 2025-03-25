@@ -1,5 +1,17 @@
 #include "../../includes/cub3d.h"
 
+void	p1_position(t_cub *data)
+{
+	if (data->p1->orientation == 'N')
+		data->p1->pov = NO;
+	if (data->p1->orientation == 'S')
+		data->p1->pov = SU;
+	if (data->p1->orientation == 'E')
+		data->p1->pov = EA;
+	if (data->p1->orientation == 'W')
+		data->p1->pov = WE;
+}
+
 bool	check_player(char **map, t_cub *data, int player)
 {
 	int	i;
@@ -15,9 +27,10 @@ bool	check_player(char **map, t_cub *data, int player)
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				player++;
-				data->p1->py = j;
-				data->p1->px = i;
+				data->p1->py = i * SCALE_BLOCK + (SCALE_BLOCK / 2);
+				data->p1->px = j * SCALE_BLOCK + (SCALE_BLOCK / 2);
 				data->p1->orientation = map[i][j];
+				p1_position(data);
 			}
 			j++;
 		}

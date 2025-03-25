@@ -6,7 +6,7 @@
 /*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/20 14:00:26 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:53:49 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,44 +86,47 @@ void	draw_map(t_cub *data)
 	}
 }
 
-int	render_next_frame(t_cub *data)
+void	player_point_dir(t_cub *data)
 {
-	int i;
-	int c;
+	int		i;
+	float	ray_x;
+	float	ray_y;
+	float	cos_pov;
+	float	sin_pov;
 
 	i = SCALE_BLOCK / 2;
-	raycaster(data);
-	moove_player(data);
-	draw_map(data);
-	draw_cercle(data, data->p1->px, data->p1->py, SCALE_BLOCK / 5, 0x99099);
-	
-	float fraction = PI / 3 / WIN_H;
-	float start_x = data->p1->pov - PI / 6;
-	c = 0;
-	while (c < WIN_H)
-	{
-		draw_rays(data, start_x, c);
-		start_x += fraction; 
-		c++;
-	}
-	// float ray_x = data->p1->px;
-	// float ray_y = data->p1->py;
-	float cos_pov = cos(data->p1->pov);
-	float sin_pov = sin(data->p1->pov);
-	// while (!ray_touch_wall(data, ray_x, ray_y) && (ray_x < WIN_W && ray_y < WIN_H))
-	// {
-	// 	my_mlx_pixel_put(&data->img[data->active_img], ray_x, ray_y, create_trgb(255, 255, 0, 0));
-	// 	ray_x += cos_pov;
-	// 	ray_y += sin_pov;
-	// }
-	float ray_x = data->p1->px;
-	float ray_y = data->p1->py;
+	cos_pov = cos(data->p1->pov);
+	sin_pov = sin(data->p1->pov);
+	ray_x = data->p1->px;
+	ray_y = data->p1->py;
 	while (i)
 	{
 		my_mlx_pixel_put(&data->img[data->active_img], ray_x, ray_y, 0x99099);
 		ray_x += cos_pov;
 		ray_y += sin_pov;
 		i--;
+	}
+}
+
+int	render_next_frame(t_cub *data)
+{
+	int c;
+	float	fraction;
+	float	start_x;
+
+	raycaster(data);
+	moove_player(data);
+	draw_map(data);
+	draw_cercle(data, data->p1->px, data->p1->py, SCALE_BLOCK / 5, 0x99099);
+	player_point_dir(data);
+	fraction =  PI / 3 / WIN_H;
+	start_x = data->p1->pov - PI / 6;
+	c = 0;
+	while (c < WIN_W)
+	{
+		draw_rays(data, start_x, c);
+		start_x += fraction; 
+		c++;
 	}
 	mlx_put_image_to_window(data->envx->mlx, data->envx->mlx_win,
 		data->img[data->active_img].img, 0, 0);
