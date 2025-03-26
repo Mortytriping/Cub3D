@@ -19,7 +19,7 @@ bool	init_colors(char *f_or_c, char *color, t_map *map)
 		return (err_msg("Color init!"), false);
 	if (ft_strncmp(f_or_c, "F", 1) == 0)
 	{
-		map->floor->t = 255;
+		map->floor->t = 0;
 		map->floor->r = ft_atol(colors[0]);
 		map->floor->g = ft_atol(colors[1]);
 		map->floor->b = ft_atol(colors[2]);
@@ -28,7 +28,7 @@ bool	init_colors(char *f_or_c, char *color, t_map *map)
 	}
 	else if (ft_strncmp(f_or_c, "C", 1) == 0)
 	{
-		map->sky->t = 255;
+		map->sky->t = 0;
 		map->sky->r = ft_atol(colors[0]);
 		map->sky->g = ft_atol(colors[1]);
 		map->sky->b = ft_atol(colors[2]);

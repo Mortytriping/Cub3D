@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/25 15:40:52 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:46:40 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_envx
 
 typedef struct s_colors
 {
-	int	t; 		// == 255 par defaut;
+	int	t;
 	int	r;
 	int	g;
 	int	b;
