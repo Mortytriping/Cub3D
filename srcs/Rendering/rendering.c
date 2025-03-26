@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/25 15:53:49 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:46:38 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	draw_map(t_cub *data)
 		while (data->map->map[y][x])
 		{
 			if (data->map->map[y][x] == '1')
-				draw_square(data, x * SCALE_BLOCK, y * SCALE_BLOCK, SCALE_BLOCK, create_trgb(255, 100, 0, 255));
+				draw_square(data, x * SCALE_BLOCK, y * SCALE_BLOCK, SCALE_BLOCK, create_trgb(0, 100, 0, 255));
 			else if (ft_strchr("0NWSE", data->map->map[y][x]))
 				draw_square(data, x * SCALE_BLOCK, y * SCALE_BLOCK, SCALE_BLOCK, data->map->floor->color);
 			x++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/26 10:38:05 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:46:52 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	draw_rays(t_cub *data, float start_x, int i)
 	sin_pov = sin(start_x);
 	while (!ray_touch_wall(data, ray_x, ray_y) && (ray_x < WIN_W && ray_y < WIN_H)) //a remplacer par un DDA algo pour otpi (force a nous);
 	{
-		my_mlx_pixel_put(&data->img[data->active_img], ray_x, ray_y, create_trgb(255, 255, 0, 0));
+		my_mlx_pixel_put(&data->img[data->active_img], ray_x, ray_y, create_trgb(0, 255, 0, 0));
 		ray_x += cos_pov;
 		ray_y += sin_pov;
 	}
@@ -72,7 +72,7 @@ void	draw_rays(t_cub *data, float start_x, int i)
 	end = start_y + height;
 	while (start_y < end)
 	{
-		my_mlx_pixel_put(&data->img[data->active_img], i, start_y, create_trgb(255, 0, 0, 255));
+		my_mlx_pixel_put(&data->img[data->active_img], i, start_y, create_trgb(0, 0, 0, 255));
 		start_y++;
 	}
 }
