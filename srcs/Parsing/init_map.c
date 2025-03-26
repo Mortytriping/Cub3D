@@ -41,9 +41,9 @@ bool	init_map(int fd, t_map *map, t_cub *data)
 	}
 	if (!line)
 		return (free_array(huge_very_huge_tab), false);
-	while (line != NULL)
+	while (line != NULL && !check_empty_line(line))
 	{
-		if (line[0] == '\n' || check_empty_line(line))
+		if (line[0] == '\n')
 		{
 			free(line);
 			free_array(huge_very_huge_tab);

@@ -67,10 +67,33 @@ void	find_maxs(t_map *map)
 	map->width = width;
 }
 
+static bool	incorrect_char(char **map, int i, int j)
+{
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '1' && map[i][j] != '0'
+				&& map[i][j] != ' ' && map[i][j] != '\n'
+				&& map[i][j] != 'S' && map[i][j] != 'E'
+				&& map[i][j] != 'A' && map[i][j] != 'W')
+			{
+				return (err_msg("Incorrect char in map!"), false);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
 bool	valid_map(char **huge_tab, t_map *map, t_cub *data)
 {
 	map->map = cpy_map(huge_tab, map);
 	if (!map->map)
+		return (false);
+	if (!incorrect_char(map->map, 0, 0))
 		return (false);
 	find_maxs(map);
 	if (!check_borders(map->map, data))

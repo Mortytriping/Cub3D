@@ -94,6 +94,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 	char	**line_tab;
 	int		j;
 	int		seen[6];
+	char	*clean_path;
 
 	j = 0;
 	while (j < 6)
@@ -115,11 +116,9 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			return (err_msg("Memory issue!"), false);
 		while (line_tab[j] && line_tab[j + 1])
 		{
-			// Nettoyage du chemin de texture
-			char *clean_path = ft_strtrim(line_tab[j + 1], " \t\n\r");
+			clean_path = ft_strtrim(line_tab[j + 1], " \t\n\r");
 			if (!clean_path)
 				return (free_array(line_tab), err_msg("Memory issue!"), false);
-			
 			if (ft_strncmp(line_tab[j], "NO", 2) == 0 && ++seen[0] == 1)
 			{
 				if (!init_textures(line_tab[j], clean_path, map))
