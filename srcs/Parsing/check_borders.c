@@ -11,14 +11,16 @@ bool	check_inside(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == '0')
+			if (map[i][j] == '0' ||
+				map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				if (i == 0 || j == 0 || !map[i + 1] || !map[i][j + 1])
+				if (i == 0 || !map[i + 1] || j == 0)
 					return (false);
-				if ((i > 0 && map[i - 1][j] == ' ') ||
-					(map[i + 1] && map[i + 1][j] == ' ') ||
-					(j > 0 && map[i][j - 1] == ' ') ||
-					(map[i][j + 1] && map[i][j + 1] == ' '))
+				if ((map[i - 1][j] == ' ') ||
+					(map[i + 1][j] == ' ') ||
+					(map[i][j - 1] == ' ') ||
+					(map[i][j + 1] == ' '))
 					return (false);
 			}
 			j++;
@@ -33,53 +35,30 @@ bool	check_borders(char **map, t_cub *data)
 	int	i;
 	int	j;
 
-	i = 1;
-	while (i < (data->map->height - 1))
+	i = 0;
+	while (i < data->map->height)
 	{
-		j = 1;
-		while (map[i][j])
+		j = 0;
+		while (map[i] && map[i][j])
 		{
-			if (map[i][j] == ' ')
+			if (map[i][j] != '1' && map[i][j] != '0'
+				&& map[i][j] != 'N' && map[i][j] != 'S'
+				&& map[i][j] != 'E' && map[i][j] != 'W')
 			{
-				if ((map[i + 1][j] && map[i + 1][j] != '1'
-					&& map[i + 1][j] != ' ')
-					|| (map[i - 1][j] && map[i - 1][j] != '1'
-					&& map[i - 1][j] != ' ')
-					|| (map[i][j + 1] && map[i][j + 1] != '1'
-					&& map[i][j + 1] != ' ')
-					|| (map[i][j - 1] && map[i][j - 1] != '1'
-					&& map[i][j - 1] != ' '))
+				j++;
+				continue ;
+			}
+			if (map[i][j] == '0'
+				|| map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			{
+				if (i == 0 || i == data->map->height - 1)
+					return (false);
+				if (j == 0 || j == data->map->width - 1)
 					return (false);
 			}
 			j++;
 		}
-		i++;
-	}
-	j = 0;
-	while (map[0][j])
-	{
-		if (map[0][j] != '1' && map[0][j] != ' ' && map[0][j] != '\n')
-			return (false);
-		j++;
-	}
-	j = 0;
-	while (map[data->map->height - 1][j])
-	{
-		if (map[data->map->height - 1][j] != '1'
-			&& map[data->map->height - 1][j] != ' '
-			&& map[data->map->height - 1][j] != '\n')
-			return (false);
-		j++;
-	}
-	i = 0;
-	while (map[i])
-	{
-		if (map[i][0] != '1' && map[i][0] != ' ' && map[i][0] != 0)
-			return (false);
-		if (map[i][data->map->width - 1] != '1'
-			&& map[i][data->map->width - 1] != ' '
-			&& map[i][data->map->width - 1] != 0)
-			return (false);
 		i++;
 	}
 	return (true);

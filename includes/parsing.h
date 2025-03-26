@@ -36,6 +36,6 @@ bool	init_textures(char *tex_orientation, char *tex_path, t_map *map);
 
 long	ft_atol(const char *nptr);
 char	**ft_split_sp1(char *str);
-
+bool	check_empty_line(char *line);
 
 #endif

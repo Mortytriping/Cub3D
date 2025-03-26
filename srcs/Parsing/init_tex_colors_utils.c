@@ -54,9 +54,11 @@ char	**ft_split_sp1(char *str)
 
 bool	valid_path(char *texture)
 {
-	int		i;
-	int		fd;
+	int	i;
+	int	fd;
 
+	if (!texture || texture[0] == '\0')
+		return (err_msg("Empty texture path!"), false);
 	i = ft_strlen(texture);
 	if (i >= 4 && ft_strncmp(texture + i - 4, ".xpm", 4) == 0)
 		;
@@ -65,5 +67,6 @@ bool	valid_path(char *texture)
 	fd = open(texture, O_RDONLY);
 	if (fd < 0)
 		return (err_msg("Can't open the texture!"), false);
+	close(fd);
 	return (true);
 }
