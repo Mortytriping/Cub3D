@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/27 11:02:50 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:53:47 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,26 @@ typedef struct s_colors
 	int	r;
 	int	g;
 	int	b;
-	int color; 	//utiliser create_trgb(t, r, g, b) pour creer la couleur; 
+	int color;
 } t_colors;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
+typedef struct s_bresenhem
+{
+	int		diff_x;
+	int		diff_y;
+	int		step_x;
+	int		step_y;
+	int		error;
+	int		y;
+	int		x;
+	int		i;
+}	t_bresenham;
 
 typedef struct s_player
 {
@@ -165,6 +183,11 @@ void	init_win_img(t_cub *data);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int		close_win(t_envx *env);
 void	end_mlx(t_cub *data);
+
+/*----bresenham----*/
+
+void	draw_bresenham(t_point p1, t_point p2, t_cub *data);
+
 
 /*------------fonctions declarations end------------*/
 
