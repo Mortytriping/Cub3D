@@ -92,15 +92,15 @@ bool	valid_map(char **huge_tab, t_map *map, t_cub *data)
 {
 	map->map = cpy_map(huge_tab, map);
 	if (!map->map)
-		return (false);
+		return (free_array(huge_tab), false);
 	if (!incorrect_char(map->map, 0, 0))
-		return (false);
+		return (free_array(map->map), false);
 	find_maxs(map);
 	if (!check_borders(map->map, data, 0, 0))
-		return (false);
+		return (free_array(map->map), false);
 	if (!check_inside(map->map, 0, 0))
-		return (false);
+		return (free_array(map->map), false);
 	if (!check_player(map->map, data, 0))
-		return (false);
+		return (free_array(map->map), false);
 	return (true);
 }

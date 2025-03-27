@@ -6,20 +6,26 @@ char	**cpy_map(char **huge_tab, t_map *map)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (huge_tab[i])
 		i++;
 	map->map = malloc(sizeof(char *) * (i + 1));
 	if (!map->map)
-		return (free_array(huge_tab), NULL);
+		return (NULL);
+	j = 0;
 	while (j < i)
 	{
 		map->map[j] = ft_strdup(huge_tab[j]);
+		if (!map->map[j])
+		{
+			free_array(map->map);
+			return (NULL);
+		}
 		j++;
 	}
 	map->map[j] = NULL;
 	return (map->map);
 }
+
 
 bool	init_map(int fd, t_map *map, t_cub *data)
 {
