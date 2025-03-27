@@ -38,5 +38,6 @@ long	ft_atol(const char *nptr);
 char	**ft_split_sp1(char *str);
 bool	check_empty_line(char *line);
 void	wait_gnl(int fd);
+char	*ft_strtrim_parse(char const *s1, char const *set, int i);
 
 #endif
