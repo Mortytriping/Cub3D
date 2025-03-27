@@ -6,7 +6,7 @@
 #    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/20 16:48:43 by abaroukh         ###   ########.fr        #
+#    Updated: 2025/03/27 11:03:11 by abaroukh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ INCLUDES_DIR = includes
 
 SRCS = srcs/main.c \
 	srcs/colors/colors.c \
-	srcs/freeing/uninit_data.c \
+	srcs/freeing/uninit_data.c srcs/freeing/free_textures.c \
 	srcs/init_data/init_data.c \
 	srcs/Inputs/inputs.c \
 	srcs/Parsing/parsing.c srcs/Parsing/init_tex_colors.c\

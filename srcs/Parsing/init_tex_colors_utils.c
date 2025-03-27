@@ -70,3 +70,30 @@ bool	valid_path(char *texture)
 	close(fd);
 	return (true);
 }
+
+bool	check_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (false);
+		i++;
+	}
+	free(line);
+	return (true);
+}
+
+void	wait_gnl(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+}

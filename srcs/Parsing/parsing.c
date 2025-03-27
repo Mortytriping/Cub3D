@@ -18,10 +18,9 @@ bool	parsing(char **av, int ac, t_cub *data)
 	if (raw_map < 0)
 		return (err_msg("Can't open the map!"), false);
 	if (!dispatch_textures_colors(raw_map, data->map, 0))
-		return (close(raw_map), false);
+		return (free_textures(data->map), close(raw_map), false);
 	if (!init_map(raw_map, data->map, data))
-		return (err_msg("Map initialization failed!"),
-			close(raw_map), false);
+		return (free_textures(data->map), close(raw_map), false);
 	close (raw_map);
 	return (true);
 }

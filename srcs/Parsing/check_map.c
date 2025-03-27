@@ -37,7 +37,7 @@ bool	check_player(char **map, t_cub *data, int player)
 		i++;
 	}
 	if (player != 1)
-		return (false);
+		return (err_msg("Wrong number of player (expected 1)!"), false);
 	return (true);
 }
 
@@ -77,7 +77,7 @@ static bool	incorrect_char(char **map, int i, int j)
 			if (map[i][j] != '1' && map[i][j] != '0'
 				&& map[i][j] != ' ' && map[i][j] != '\n'
 				&& map[i][j] != 'S' && map[i][j] != 'E'
-				&& map[i][j] != 'A' && map[i][j] != 'W')
+				&& map[i][j] != 'N' && map[i][j] != 'W')
 			{
 				return (err_msg("Incorrect char in map!"), false);
 			}
@@ -96,9 +96,9 @@ bool	valid_map(char **huge_tab, t_map *map, t_cub *data)
 	if (!incorrect_char(map->map, 0, 0))
 		return (false);
 	find_maxs(map);
-	if (!check_borders(map->map, data))
+	if (!check_borders(map->map, data, 0, 0))
 		return (false);
-	if (!check_inside(map->map))
+	if (!check_inside(map->map, 0, 0))
 		return (false);
 	if (!check_player(map->map, data, 0))
 		return (false);
