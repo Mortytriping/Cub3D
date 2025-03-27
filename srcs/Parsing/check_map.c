@@ -90,9 +90,12 @@ static bool	incorrect_char(char **map, int i, int j)
 
 bool	valid_map(char **huge_tab, t_map *map, t_cub *data)
 {
+	int	i;
+
+	i = 0;
 	map->map = cpy_map(huge_tab, map);
 	if (!map->map)
-		return (free_array(huge_tab), false);
+		return (false);
 	if (!incorrect_char(map->map, 0, 0))
 		return (free_array(map->map), false);
 	find_maxs(map);

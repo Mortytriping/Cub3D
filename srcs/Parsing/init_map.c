@@ -26,7 +26,6 @@ char	**cpy_map(char **huge_tab, t_map *map)
 	return (map->map);
 }
 
-
 bool	init_map(int fd, t_map *map, t_cub *data)
 {
 	char	*line;
