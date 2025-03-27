@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/27 11:12:01 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:15:38 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	main(int ac, char **av)
 	(void)av;
 	(void)ac;
 	data = init_data();
-	// data->map->map = testing_map(data);
-	
-	if(!parsing(av, ac, data))
+	if (!parsing(av, ac, data))
 		return (last_free_uninit_data(data), 1);
 	printf("w = %d, h = %d\n", data->map->height, data->map->width);
 	data->envx->mlx = mlx_init();
