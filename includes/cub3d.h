@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/27 16:53:47 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:55:44 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define WIN_W 1024
 # define WIN_H 720
 
-
 # define W 119
 # define A 97
 # define S 115
@@ -49,7 +48,7 @@
 /*-------------settings------------*/
 
 # define FOV 60
-# define SCALE_BLOCK 16
+# define SCALE_BLOCK 64
 # define SPEED 0.3
 
 /*-------------Player settings end------------*/
@@ -186,7 +185,7 @@ void	end_mlx(t_cub *data);
 
 /*----bresenham----*/
 
-void	draw_bresenham(t_point p1, t_point p2, t_cub *data);
+void	draw_bresenham(t_point p1, t_point p2, t_cub *data, int color);
 
 
 /*------------fonctions declarations end------------*/
