@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/27 16:48:19 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:53:51 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,67 +44,149 @@ float	distance(t_cub *data, float ray_x, float ray_y)
 	return (fix_dist);
 }
 
-
 void	dda_checker(t_cub *data)
 {
-	float	y_step;
-	float	x_step;
+	float	ray_a;
 	float	first_x;
 	float	first_y;
-	// float	r_angle;
-	float	tang;
-	float	ray_a;
-	// int		ray_nb;
-	int		r_field;
-	int		max_x;
-	int		max_y;
-	int		max_p;
-	t_point		p1;
-	t_point		p2;
+	float	x_step;
+	float	y_step;
+	int		map_x;
+	int		map_y;
+	int		max_iter;
+	int		hit;
+	t_point	p1;
+	t_point	p2;
 
-	r_field = 0;
 	ray_a = data->p1->pov;
-	tang = -1 / tan(ray_a);
-	if (ray_a > PI) //looking down
+	if (sin(ray_a) == 0)
+		return ;
+	max_iter = 0;
+	hit = 0;
+	if (sin(ray_a) > 0)
 	{
-		first_y = (((int)data->p1->py >> 6) << 6) - 0.0001;
-		first_x = data->p1->py - first_y * tang + data->p1->px;
-		y_step = -64;
-		x_step = 64 * tang;
+		/* Le rayon va vers le bas */
+		first_y = floor(data->p1->py / SCALE_BLOCK) * SCALE_BLOCK + SCALE_BLOCK;
+		y_step = SCALE_BLOCK;
 	}
-	if (ray_a < PI) //looking up
+	else
 	{
-		first_y = (((int)data->p1->py >> 6) << 6) +64;
-		first_x = data->p1->py - first_y * tang + data->p1->px;
-		y_step = 64;
-		x_step = -64 * tang;
+		/* Le rayon va vers le haut */
+		first_y = floor(data->p1->py / SCALE_BLOCK) * SCALE_BLOCK - 0.0001;
+		y_step = -SCALE_BLOCK;
 	}
-	if (ray_a == 0 || ray_a == PI)
+	/* Calcul de first_x en utilisant la différence verticale et tan(ray_a) */
+	first_x = data->p1->px + (first_y - data->p1->py) / tan(ray_a);
+	/* x_step correspond à l'évolution horizontale pour un saut vertical de SCALE_BLOCK */
+	x_step = y_step / tan(ray_a);
+	/* Étape 3 : Boucle DDA pour avancer de case en case */
+	while (max_iter < 10)
 	{
-		first_x = data->p1->px;
-		first_y = data->p1->py;
-		r_field = 10;
-	}
-	while (r_field < 10)
-	{
-		max_x = (int)(first_x) >> 6;
-		max_y = (int)(first_y) >> 6;
-		max_p = max_y * data->map->width + max_x;
-		if (max_p < data->map->width * data->map->height && data->map->map[max_y][max_x] == '1')
-			r_field = 10;
-		else
+		/* Convertir les coordonnées en indices de la grille */
+		map_x = (int)first_x / SCALE_BLOCK;
+		map_y = (int)first_y / SCALE_BLOCK;
+		
+		/* Vérifier si les indices sont valides */
+		if (map_x < 0 || map_x >= data->map->width ||
+			map_y < 0 || map_y >= data->map->height)
+			break ;
+		
+		/* Vérifier si la cellule courante est un mur */
+		if (data->map->map[map_y][map_x] == '1')
 		{
-			p1.x = first_x;
-			p2.x = first_x += x_step;
-			p1.y = first_y;
-			p2.y = first_y += y_step;
-			// first_x += x_step;
-			// first_y += y_step;
+			hit = 1;
+			break ;
 		}
-		draw_bresenham(p1, p2, data);
-		r_field++;
+		/* Mettre à jour first_x et first_y pour le prochain saut */
+		first_x = first_x + x_step;
+		first_y = first_y + y_step;
+		max_iter++;
+	}
+	/* Étape 4 : Si un mur a été rencontré, on peut utiliser ces coordonnées */
+	if (hit)
+	{
+		/* Exemple : tracer une ligne du joueur jusqu'à l'intersection */
+		p1.x = data->p1->px;
+		p1.y = data->p1->py;
+		p2.x = first_x;
+		p2.y = first_y;
+		draw_bresenham(p1, p2, data, 0xFF0000);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void	dda_checker(t_cub *data)
+// {
+// 	float	y_step;
+// 	float	x_step;
+// 	float	first_x;
+// 	float	first_y;	
+// 	float	tang;
+// 	float	ray_a;
+// 	int		r_field;
+// 	int		max_x;
+// 	int		max_y;
+// 	int		max_p;
+// 	t_point		p1;
+// 	t_point		p2;
+
+// 	r_field = 0;
+// 	ray_a = data->p1->pov;
+// 	tang = -1 / tan(ray_a);
+// 	if (ray_a > PI) //looking down
+// 	{
+// 		first_y = (((int)data->p1->py >> 6) << 6) - 0.0001;
+// 		first_x = data->p1->py - first_y * tang + data->p1->px;
+// 		y_step = -64;
+// 		x_step = 64 * tang;
+// 	}
+// 	if (ray_a < PI) //looking up
+// 	{
+// 		first_y = (((int)data->p1->py >> 6) << 6) +64;
+// 		first_x = data->p1->py - first_y * tang + data->p1->px;
+// 		y_step = 64;
+// 		x_step = -64 * tang;
+// 	}
+// 	if (ray_a == 0 || ray_a == PI)
+// 	{
+// 		first_x = data->p1->px;
+// 		first_y = data->p1->py;
+// 		r_field = 10;
+// 	}
+// 	while (r_field < 10)
+// 	{
+// 		max_x = (int)(first_x) >> 6;
+// 		max_y = (int)(first_y) >> 6;
+// 		max_p = max_y * data->map->width + max_x;
+// 		if (max_p < data->map->width * data->map->height && data->map->map[max_y][max_x] == '1')
+// 			r_field = 10;
+// 		p1.x = first_x;
+// 		p1.y = first_y;
+// 		p2.x = first_x + x_step;
+// 		p2.y = first_y + y_step;
+// 		first_x = p2.x;
+// 		first_y = p2.y;
+// 		draw_bresenham(p1, p2, data);
+// 		r_field++;
+// 	}
+// }
 
 void	draw_rays(t_cub *data, float start_x, int i)
 {
