@@ -100,7 +100,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 			return (wait_gnl(fd), err_msg("Memory issue!"), false);
 		while (line_tab[j] && line_tab[j + 1])
 		{
-			clean_path = ft_strtrim_parse(line_tab[j + 1], " \t\n\r", 0);
+			clean_path = ft_strtrim(line_tab[j + 1], " \t\n\r");
 			if (!clean_path)
 				return (wait_gnl(fd), free_array(line_tab),
 					err_msg("Memory issue!"), false);
