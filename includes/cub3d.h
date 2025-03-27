@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/26 12:46:40 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:02:50 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		create_trgb(int t, int r, int g, int b);
 
 /*-----freeing-----*/
 void	last_free_uninit_data(t_cub *data);
+void	free_textures(t_map *map);
 
 /*-----init_data-----*/
 t_cub	*init_data(void);
