@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/27 17:55:44 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:02:08 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,28 @@ typedef struct	s_map
 	int			height;
 } t_map;
 
+typedef struct	s_dda
+{
+	float	h_wall_size;
+	float	v_wall_size;
+	float	dist;
+	float	height;
+	int		start;
+	int		end;
+	float	first_x;
+	float	first_y;
+	float	x_step;
+	float	y_step;
+	int		map_x;
+	int		map_y;
+	int		max_iter;
+	int		hit;
+	t_point	p1;
+	t_point	p2;
+} t_dda;
+
+
+
 /*---------------main data structure---------------*/
 
 typedef struct s_cub
@@ -167,11 +189,12 @@ void	moove_player(t_cub *data);
 
 /*---Raycasting---*/
 void	raycaster(t_cub *data);
-void	draw_rays(t_cub *data, float start_x, int i);
+void	draw_rays(t_cub *data);
 
 /*----Rendering----*/
 int		render_next_frame(t_cub *data);
 void	draw_cercle(t_cub *data, int cx, int cy, int size, int color);
+void	floor_sky_color(t_mlx *img, t_cub *data);
 
 /*------utils------*/
 void	err_msg(char *str);
