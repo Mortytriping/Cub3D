@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/26 12:46:38 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:18:28 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,28 @@ void	black_screen(t_mlx *img)
 		while (y < WIN_H)
 		{
 			my_mlx_pixel_put(img, x, y, 0);
+			y++;
+		}
+		x++;
+	}
+}
+
+void	floor_sky_color(t_mlx *img, t_cub *data)
+{
+	int	x;
+	int	y;
+	
+	x = 0;
+	y = 0;
+	while(x < WIN_W)
+	{
+		y = 0;
+		while (y < WIN_H)
+		{
+			if (y < (WIN_H / 2))
+				my_mlx_pixel_put(img, x, y, data->map->sky->color);
+			else
+				my_mlx_pixel_put(img, x, y, data->map->floor->color);
 			y++;
 		}
 		x++;
@@ -110,27 +132,15 @@ void	player_point_dir(t_cub *data)
 
 int	render_next_frame(t_cub *data)
 {
-	int c;
-	float	fraction;
-	float	start_x;
-
-	raycaster(data);
 	moove_player(data);
 	draw_map(data);
 	draw_cercle(data, data->p1->px, data->p1->py, SCALE_BLOCK / 5, 0x99099);
 	player_point_dir(data);
-	fraction =  PI / 3 / WIN_H;
-	start_x = data->p1->pov - PI / 6;
-	c = 0;
-	while (c < WIN_W)
-	{
-		draw_rays(data, start_x, c);
-		start_x += fraction; 
-		c++;
-	}
+	draw_rays(data);
 	mlx_put_image_to_window(data->envx->mlx, data->envx->mlx_win,
 		data->img[data->active_img].img, 0, 0);
 	data->active_img = (data->active_img + 1) % 2;
-	black_screen(&data->img[data->active_img]);
+	memset(data->img[data->active_img].addr, 0, data->img[data->active_img].line_length * WIN_H); //a remplacer par un ft_memset optimise
+	// floor_sky_color(&data->img[data->active_img], data); // horrible niveau opti
 	return (0);
 }

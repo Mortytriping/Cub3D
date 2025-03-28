@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/27 17:53:51 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:12:34 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,187 +44,136 @@ float	distance(t_cub *data, float ray_x, float ray_y)
 	return (fix_dist);
 }
 
-void	dda_checker(t_cub *data)
+void	raycasting(t_cub *data, t_dda r, int x)
 {
-	float	ray_a;
-	float	first_x;
-	float	first_y;
-	float	x_step;
-	float	y_step;
-	int		map_x;
-	int		map_y;
-	int		max_iter;
-	int		hit;
-	t_point	p1;
-	t_point	p2;
-
-	ray_a = data->p1->pov;
-	if (sin(ray_a) == 0)
-		return ;
-	max_iter = 0;
-	hit = 0;
-	if (sin(ray_a) > 0)
+	if (r.h_wall_size < r.v_wall_size)
+		r.dist = r.h_wall_size;
+	else
+		r.dist = r.v_wall_size;
+	r.height = (SCALE_BLOCK / r.dist) * (WIN_W / 2);
+	r.start = (WIN_H - r.height) / 2;
+	r.end = r.start + r.height;
+	while (r.start < r.end)
 	{
-		/* Le rayon va vers le bas */
-		first_y = floor(data->p1->py / SCALE_BLOCK) * SCALE_BLOCK + SCALE_BLOCK;
-		y_step = SCALE_BLOCK;
+		my_mlx_pixel_put(&data->img[data->active_img] , x, r.start, create_trgb(0, 150, 0, 255));
+		r.start++;
+	}
+}
+
+void	dda_checker(t_cub *data, float ray_a, int x)
+{
+	t_dda	r;
+	
+	if (sin(ray_a) != 0)
+	{
+		r.max_iter = 0;
+		r.hit = 0;
+		if (sin(ray_a) > 0)
+		{
+			r.first_y = floor(data->p1->py / SCALE_BLOCK) * SCALE_BLOCK + SCALE_BLOCK;
+			r.y_step = SCALE_BLOCK;
+		}
+		else
+		{
+			r.first_y = floor(data->p1->py / SCALE_BLOCK) * SCALE_BLOCK - 0.0001;
+			r.y_step = -SCALE_BLOCK;
+		}
+		r.first_x = data->p1->px + (r.first_y - data->p1->py) / tan(ray_a);
+		r.x_step = r.y_step / tan(ray_a);
+		while (r.max_iter < 10)
+		{
+			r.map_x = (int)r.first_x / SCALE_BLOCK;
+			r.map_y = (int)r.first_y / SCALE_BLOCK;
+			
+			if (r.map_x < 0 || r.map_x >= data->map->width ||
+				r.map_y < 0 || r.map_y >= data->map->height)
+				break ;
+			
+			if (data->map->map[r.map_y][r.map_x] == '1')
+			{
+				r.hit = 1;
+				break ;
+			}
+			r.first_x = r.first_x + r.x_step;
+			r.first_y = r.first_y + r.y_step;
+			r.max_iter++;
+		}
+		if (r.hit)
+		{
+			r.p1.x = data->p1->px;
+			r.p1.y = data->p1->py;
+			r.p2.x = r.first_x;
+			r.p2.y = r.first_y;
+			draw_bresenham(r.p1, r.p2, data, 0xFF0000);
+		}
+		r.h_wall_size = distance(data, r.p2.x, r.p2.y);
 	}
 	else
+		r.h_wall_size = -1;
+	/*----------------------verticale lignes-------------------------*/
+	r.max_iter = 0;
+	r.hit = 0;
+	if (cos(ray_a) != 0)
 	{
-		/* Le rayon va vers le haut */
-		first_y = floor(data->p1->py / SCALE_BLOCK) * SCALE_BLOCK - 0.0001;
-		y_step = -SCALE_BLOCK;
-	}
-	/* Calcul de first_x en utilisant la différence verticale et tan(ray_a) */
-	first_x = data->p1->px + (first_y - data->p1->py) / tan(ray_a);
-	/* x_step correspond à l'évolution horizontale pour un saut vertical de SCALE_BLOCK */
-	x_step = y_step / tan(ray_a);
-	/* Étape 3 : Boucle DDA pour avancer de case en case */
-	while (max_iter < 10)
-	{
-		/* Convertir les coordonnées en indices de la grille */
-		map_x = (int)first_x / SCALE_BLOCK;
-		map_y = (int)first_y / SCALE_BLOCK;
 		
-		/* Vérifier si les indices sont valides */
-		if (map_x < 0 || map_x >= data->map->width ||
-			map_y < 0 || map_y >= data->map->height)
-			break ;
-		
-		/* Vérifier si la cellule courante est un mur */
-		if (data->map->map[map_y][map_x] == '1')
+		if (cos(ray_a) > 0)
 		{
-			hit = 1;
-			break ;
+			r.first_x = floor(data->p1->px / SCALE_BLOCK) * SCALE_BLOCK + SCALE_BLOCK;
+			r.x_step = SCALE_BLOCK;
 		}
-		/* Mettre à jour first_x et first_y pour le prochain saut */
-		first_x = first_x + x_step;
-		first_y = first_y + y_step;
-		max_iter++;
+		else
+		{
+			r.first_x = floor(data->p1->px / SCALE_BLOCK) * SCALE_BLOCK - 0.0001;
+			r.x_step = -SCALE_BLOCK;
+		}
+		r.first_y = data->p1->py + (r.first_x - data->p1->px) * tan(ray_a);
+		r.y_step = r.x_step * tan(ray_a);
+		while (r.max_iter < 10)
+		{
+			r.map_x = (int)r.first_x / SCALE_BLOCK;
+			r.map_y = (int)r.first_y / SCALE_BLOCK;			
+			if (r.map_x < 0 || r.map_x >= data->map->width ||
+				r.map_y < 0 || r.map_y >= data->map->height)
+				break ;
+			
+			if (data->map->map[r.map_y][r.map_x] == '1')
+			{
+				r.hit = 1;
+				break ;
+			}
+			r.first_x = r.first_x + r.x_step;
+			r.first_y = r.first_y + r.y_step;
+			r.max_iter++;
+		}
+		if (r.hit)
+		{
+			r.p1.x = data->p1->px;
+			r.p1.y = data->p1->py;
+			r.p2.x = r.first_x;
+			r.p2.y = r.first_y;
+			draw_bresenham(r.p1, r.p2, data, 0x00FF00);
+		}
+		r.v_wall_size = distance(data, r.p2.x, r.p2.y);
 	}
-	/* Étape 4 : Si un mur a été rencontré, on peut utiliser ces coordonnées */
-	if (hit)
-	{
-		/* Exemple : tracer une ligne du joueur jusqu'à l'intersection */
-		p1.x = data->p1->px;
-		p1.y = data->p1->py;
-		p2.x = first_x;
-		p2.y = first_y;
-		draw_bresenham(p1, p2, data, 0xFF0000);
-	}
+	else
+		r.v_wall_size = -1;
+	raycasting(data, r, x);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void	dda_checker(t_cub *data)
-// {
-// 	float	y_step;
-// 	float	x_step;
-// 	float	first_x;
-// 	float	first_y;	
-// 	float	tang;
-// 	float	ray_a;
-// 	int		r_field;
-// 	int		max_x;
-// 	int		max_y;
-// 	int		max_p;
-// 	t_point		p1;
-// 	t_point		p2;
-
-// 	r_field = 0;
-// 	ray_a = data->p1->pov;
-// 	tang = -1 / tan(ray_a);
-// 	if (ray_a > PI) //looking down
-// 	{
-// 		first_y = (((int)data->p1->py >> 6) << 6) - 0.0001;
-// 		first_x = data->p1->py - first_y * tang + data->p1->px;
-// 		y_step = -64;
-// 		x_step = 64 * tang;
-// 	}
-// 	if (ray_a < PI) //looking up
-// 	{
-// 		first_y = (((int)data->p1->py >> 6) << 6) +64;
-// 		first_x = data->p1->py - first_y * tang + data->p1->px;
-// 		y_step = 64;
-// 		x_step = -64 * tang;
-// 	}
-// 	if (ray_a == 0 || ray_a == PI)
-// 	{
-// 		first_x = data->p1->px;
-// 		first_y = data->p1->py;
-// 		r_field = 10;
-// 	}
-// 	while (r_field < 10)
-// 	{
-// 		max_x = (int)(first_x) >> 6;
-// 		max_y = (int)(first_y) >> 6;
-// 		max_p = max_y * data->map->width + max_x;
-// 		if (max_p < data->map->width * data->map->height && data->map->map[max_y][max_x] == '1')
-// 			r_field = 10;
-// 		p1.x = first_x;
-// 		p1.y = first_y;
-// 		p2.x = first_x + x_step;
-// 		p2.y = first_y + y_step;
-// 		first_x = p2.x;
-// 		first_y = p2.y;
-// 		draw_bresenham(p1, p2, data);
-// 		r_field++;
-// 	}
-// }
-
-void	draw_rays(t_cub *data, float start_x, int i)
+void	draw_rays(t_cub *data)
 {
-	float	sin_pov;
-	float	cos_pov;
-	float	ray_y;
-	float	ray_x;
-	float	dist;
-	float	height;
-	int		start_y;
-	int 	end;
-	
+	int		x;
+    float	fov;
+    float	angle_increment;
+    float	ray_angle;
 
-	ray_x = data->p1->px;
-	ray_y = data->p1->py;
-	cos_pov = cos(start_x);
-	sin_pov = sin(start_x);
-	// while (!ray_touch_wall(data, ray_x, ray_y) && (ray_x < WIN_W && ray_y < WIN_H)) //a remplacer par un DDA algo pour otpi (force a nous);
-	// {
-	// 	my_mlx_pixel_put(&data->img[data->active_img], ray_x, ray_y, create_trgb(0, 255, 0, 0));
-	// 	ray_x += cos_pov;
-	// 	ray_y += sin_pov;
-	// }
-	dda_checker(data);
-	(void)i;
-	dist = distance(data, ray_x, ray_y);
-	height = (SCALE_BLOCK / dist) * (WIN_W / 2);
-	start_y = (WIN_H - height) / 2;
-	end = start_y + height;
-	while (start_y < end)
-	{
-		my_mlx_pixel_put(&data->img[data->active_img], i, start_y, create_trgb(0, 0, 0, 255));
-		start_y++;
-	}
-}
-
-
-void	raycaster(t_cub *data)
-{
-	(void)data;
+    fov = FOV * RD;
+    angle_increment = fov / WIN_W;
+    x = 0;
+    while (x < WIN_W)
+    {
+        ray_angle = data->p1->pov - (fov / 2) + x * angle_increment;
+        dda_checker(data, ray_angle, x);
+        x++;
+    }
 }
