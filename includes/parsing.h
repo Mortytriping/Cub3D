@@ -27,6 +27,9 @@ bool	valid_map(char **huge_tab, t_map *map, t_cub *data);
 /*---------------textures and colors---------------*/
 
 bool	dispatch_textures_colors(int fd, t_map *map, int i);
+bool	handle_texture(char **line_tab, char *clean_path,
+			t_map *map, int *seen);
+bool	parse_line(char *line, int fd, t_map *map, int *seen);
 
 bool	valid_path(char *texture);
 bool	init_colors(char *f_or_c, char *color, t_map *map);
