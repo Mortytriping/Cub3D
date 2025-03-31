@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/28 19:02:08 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:46:57 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 /*---------------------Macros---------------------*/
 
-# define WIN_W 1024
-# define WIN_H 720
+# define WIN_W 1280
+# define WIN_H 860
 
 # define W 119
 # define A 97
@@ -142,6 +142,7 @@ typedef struct	s_dda
 	int		map_y;
 	int		max_iter;
 	int		hit;
+	int		w_color;
 	t_point	p1;
 	t_point	p2;
 } t_dda;

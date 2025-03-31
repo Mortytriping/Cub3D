@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/28 18:18:28 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:47:37 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,9 @@ void	player_point_dir(t_cub *data)
 int	render_next_frame(t_cub *data)
 {
 	moove_player(data);
-	draw_map(data);
-	draw_cercle(data, data->p1->px, data->p1->py, SCALE_BLOCK / 5, 0x99099);
-	player_point_dir(data);
+	// draw_map(data);
+	// draw_cercle(data, data->p1->px, data->p1->py, SCALE_BLOCK / 5, 0x99099);
+	// player_point_dir(data);
 	draw_rays(data);
 	mlx_put_image_to_window(data->envx->mlx, data->envx->mlx_win,
 		data->img[data->active_img].img, 0, 0);
