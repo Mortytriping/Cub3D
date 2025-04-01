@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:58:12 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/03/31 11:58:13 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:48:33 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ bool	init_colors(char *f_or_c, char *color, t_map *map)
 	while (colors[i])
 	{
 		if (ft_strlen(colors[i]) > 11)
-			return (free_array(colors), err_msg("Color init!"), false);
+			return (free_array(colors), err_msg("Invalid color format!"), 0);
 		i++;
 	}
 	if (i != 3)
-		return (free_array(colors), err_msg("Color init!"), false);
+		return (free_array(colors), err_msg("Invalid color format!"), false);
 	if (ft_strncmp(f_or_c, "F", 1) == 0)
 		assign_colors(colors, map, 1);
 	else if (ft_strncmp(f_or_c, "C", 1) == 0)
@@ -94,7 +94,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (err_msg("Missing texture/color data!"), false);
+			return (err_msg("Missing texture/color definitions!"), 0);
 		line = ft_strtrim_parse(line, " \n", 0);
 		if (!line)
 			return (wait_gnl(fd), err_msg("Memory issue!"), false);
@@ -105,7 +105,7 @@ bool	dispatch_textures_colors(int fd, t_map *map, int i)
 		i++;
 	}
 	if (seen[0] + seen[1] + seen[2] + seen[3] + seen[4] + seen[5] != 6)
-		return (err_msg("Missing or duplicate texture/color!"), false);
+		return (err_msg("All textures must be defined once and only once!"), 0);
 	return (true);
 }
 

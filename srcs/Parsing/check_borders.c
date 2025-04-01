@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:58:00 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/03/31 11:58:01 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:43:49 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	check_inside(char **map, int i, int j)
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				if (i == 0 || j == 0 || !map[i + 1] || !map[i][j + 1])
-					return (err_msg("Map not conform!"), false);
+					return (err_msg("Map not closed at edge of map!"), false);
 				if ((map[i - 1] && (map[i - 1][j] == ' '
 						|| map[i - 1][j] == '\n' || map[i - 1][j] == '\0'))
 						|| (map[i + 1] && (map[i + 1][j] == ' ' ||
@@ -32,7 +32,7 @@ bool	check_inside(char **map, int i, int j)
 						|| map[i][j - 1] == '\0') ||
 						(map[i][j + 1] == ' ' || map[i][j + 1] == '\n'
 						|| map[i][j + 1] == '\0'))
-					return (err_msg("Map not conform!"), false);
+					return (err_msg("Empty space in playable area!"), false);
 			}
 			j++;
 		}

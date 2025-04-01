@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:58:06 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/03/31 11:58:07 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:52:45 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ bool	valid_path(char *texture)
 	if (i >= 4 && ft_strncmp(texture + i - 4, ".xpm", 4) == 0)
 		;
 	else
-		return (err_msg("Texture is not a \".xpm\" file!"), false);
+		return (err_msg("Texture file must have .xpm extension!"), false);
 	fd = open(texture, O_RDONLY);
 	if (fd < 0)
-		return (err_msg("Can't open the texture!"), false);
+		return (err_msg("Can't open texture! Check path and permissions!"), 0);
 	close(fd);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:58:09 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/03/31 11:58:10 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:55:59 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ bool	parse_line(char *line, int fd, t_map *map, int *seen)
 	free(clean_path);
 	free_array(line_tab);
 	if (!success)
-		return (err_msg("Invalid or duplicate texture/color!"), false);
+		return (false);
 	return (true);
 }

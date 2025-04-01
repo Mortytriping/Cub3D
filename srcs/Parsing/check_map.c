@@ -6,7 +6,7 @@
 /*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:58:02 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/03/31 11:58:03 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:52:14 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,6 @@ static bool	incorrect_char(char **map, int i, int j)
 
 bool	valid_map(char **huge_tab, t_map *map, t_cub *data)
 {
-	int	i;
-
-	i = 0;
 	map->map = cpy_map(huge_tab, map);
 	if (!map->map)
 		return (false);
