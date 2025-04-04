@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/04 18:28:41 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:04:36 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 
 # define FOV 60
 # define SCALE_BLOCK 64
-# define SPEED 0.5
+# define SPEED 0.8
 
 /*-------------Player settings end------------*/
 

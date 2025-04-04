@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/04 18:39:40 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:04:10 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 	float	step;
 	float   texPos;
 
-	
-	i = 0;
 	if ((r.h_wall_size - r.v_wall_size) < 0.001)
 	{
 		r.dist = r.h_wall_size;
@@ -89,11 +87,22 @@ void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 	step = data->textures[tex].height / r.height;
 	texPos = (r.start - (WIN_H / 2 - r.height / 2)) * step;
 	if (texPos < 0)
-		texPos = 0; 
+		texPos = 0;
+	i = 0;
 	while (i < r.start)
 	{
 		my_mlx_pixel_put(&data->img[data->active_img] , x, i, data->map->sky->color);
 		i++;
+	}
+	if (r.end > WIN_H)
+		r.end = WIN_H;
+	if (r.start < 0)
+	{
+		// Au lieu de dessiner “dans le vide”, on avance la texture
+		// d’autant de lignes qu’on saute (valeur absolue de r.start).
+		// Ainsi, ça reste cohérent sur le plan visuel.
+		texPos += step * (-r.start);
+		r.start = 0;
 	}
 	while (r.start < r.end)
 	{

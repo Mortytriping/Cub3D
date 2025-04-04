@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/03 17:10:54 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:06:46 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	load_texture(t_cub *data, char *path, t_texture *texture)
 	texture->line_length = 0;
 	texture->endian = 0;
     texture->img = mlx_xpm_file_to_image(data->envx->mlx, path, &texture->width, &texture->height);
-	printf("path = %s, width = %d, height = %d\n", path, texture->width, texture->height);
     if (!texture->img)
     {
         ft_putstr_fd("Error\nFailed to load texture: ", 2);
@@ -57,7 +56,6 @@ int	main(int ac, char **av)
 	data = init_data();
 	if (!parsing(av, ac, data))
 		return (last_free_uninit_data(data), 1);
-	printf("w = %d, h = %d\n", data->map->height, data->map->width);
 	data->envx->mlx = mlx_init();
 	if (!data->envx->mlx)
 		return (err_msg("Fatal error on mlx"), last_free_uninit_data(data), 1);

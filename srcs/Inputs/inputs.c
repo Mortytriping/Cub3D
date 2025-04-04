@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:59:00 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/18 17:46:46 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:06:54 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	key_press(int keycode, t_cub *data)
 
 int	key_release(int keycode, t_cub *data)
 {
-	// printf("\n%ddasd\n", keycode);
 	if (keycode == W)
 		data->p1->moove_up = false;
 	if (keycode == A)

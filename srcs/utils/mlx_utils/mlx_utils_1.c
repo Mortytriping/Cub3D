@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/28 10:45:55 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:00:15 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ void	end_mlx(t_cub *data)
 {
 	mlx_destroy_image(data->envx->mlx, data->img[0].img);
 	mlx_destroy_image(data->envx->mlx, data->img[1].img);
+	mlx_destroy_image(data->envx->mlx, data->textures[0].img);
+	mlx_destroy_image(data->envx->mlx, data->textures[1].img);
+	mlx_destroy_image(data->envx->mlx, data->textures[2].img);
+	mlx_destroy_image(data->envx->mlx, data->textures[3].img);
 	mlx_clear_window(data->envx->mlx, data->envx->mlx_win);
 	mlx_destroy_window(data->envx->mlx, data->envx->mlx_win);
 	mlx_destroy_display(data->envx->mlx);

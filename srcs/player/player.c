@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:50:29 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/20 13:16:19 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:05:18 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	moove_player(t_cub *data)
 	
 	cos_angle = cos(data->p1->pov);
 	sin_angle = sin(data->p1->pov);
-	rotate_speed = 0.01;
+	rotate_speed = 0.022;
 	if (data->p1->rotate_left)
 		data->p1->pov -= rotate_speed;
 	if (data->p1->rotate_right)
