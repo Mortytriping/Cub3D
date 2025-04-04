@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tex_colors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:58:12 by abaroukh          #+#    #+#             */
-/*   Updated: 2025/04/01 10:48:33 by abaroukh         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:21:42 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	assign_colors(char **colors, t_map *map, int type)
 	}
 	else if (type == 2)
 	{
-		map->floor->t = 0;
-		map->floor->r = ft_atol(colors[0]);
-		map->floor->g = ft_atol(colors[1]);
-		map->floor->b = ft_atol(colors[2]);
-		map->floor->color = create_trgb(map->floor->t, map->floor->r,
-				map->floor->g, map->floor->b);
+		map->sky->t = 0;
+		map->sky->r = ft_atol(colors[0]);
+		map->sky->g = ft_atol(colors[1]);
+		map->sky->b = ft_atol(colors[2]);
+		map->sky->color = create_trgb(map->sky->t, map->sky->r,
+				map->sky->g, map->sky->b);
 	}
 }
 

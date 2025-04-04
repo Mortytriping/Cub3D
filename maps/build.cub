@@ -1,7 +1,7 @@
 EA ./textures/east_texture.xpm
-SO ./textures/south_texture.xpm
+SO ./textures/wall.xpm
 WE ./textures/west_texture.xpm
-NO ./textures/north_texture.xpm
+NO ./textures/wall.xpm
 F 220,100,0
 C 225,30,0
 

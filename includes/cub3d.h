@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/03/31 18:46:57 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:23:30 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,17 @@ typedef struct s_mlx
 	int		line_length;
 	int		endian;
 }	t_mlx;
+
+typedef struct s_texture
+{
+    void	*img;          // Pointeur vers l'image MiniLibX
+    char	*addr;         // Adresse des pixels de l'image
+    int		width;         // Largeur de la texture
+    int		height;        // Hauteur de la texture
+    int		bpp;           // Bits par pixel
+    int		line_length;   // Longueur d'une ligne en octets
+    int		endian;        // Endianess (ordre des octets)
+}	t_texture;
 
 typedef struct s_envx
 {
@@ -155,6 +166,7 @@ typedef struct s_cub
 {
 	t_envx		*envx;
 	t_mlx		img[2];
+	t_texture	textures[4];
 	int			active_img;
 	int 		win_width;
 	int 		win_height;
@@ -206,6 +218,9 @@ void	init_win_img(t_cub *data);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int		close_win(t_envx *env);
 void	end_mlx(t_cub *data);
+void	init_texture(t_cub *data);
+void	load_texture(t_cub *data, char *path, t_texture *texture);
+
 
 /*----bresenham----*/
 
