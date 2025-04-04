@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/03 16:23:30 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:32:39 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@
 # define SU PI / 2
 # define WE PI
 # define EA 0
+
+# define NORD 0
+# define SUD 1
+# define EST 2
+# define OUEST 3
 
 /*-------------settings------------*/
 
@@ -155,7 +160,8 @@ typedef struct	s_dda
 	int		hit;
 	int		w_color;
 	t_point	p1;
-	t_point	p2;
+	t_point	h_p;
+	t_point	v_p;
 } t_dda;
 
 

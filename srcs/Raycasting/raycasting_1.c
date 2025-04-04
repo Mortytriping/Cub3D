@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/03 17:45:45 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:37:22 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,80 +46,73 @@ float	distance(t_cub *data, float ray_x, float ray_y, float ray_a)
 
 void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 {
-    t_texture	*texture;
-    int			tex_x;
-    int			tex_y;
-    int			color;
-    int			y;
-    float		wall_hit;
-    float		proj_distance;
-    float		step;
-    float		tex_pos;
+	int		w_color;
+	int		side;
+	int		i;
+	int		tex;
+	float	wall_x;	
+	float	tex_x;
+	float	tex_y;
+	float	step;
+	float   texPos;
 
-    // Sélection de la texture et calcul de la coordonnée X de la texture
-    if (r.h_wall_size < r.v_wall_size)
-    {
-        r.dist = r.h_wall_size;
-        texture = (sin(ray_a) < 0) ? &data->textures[0] : &data->textures[1]; // Nord ou Sud
-        wall_hit = r.p2.x;
-    }
-    else
-    {
-        r.dist = r.v_wall_size;
-        texture = (cos(ray_a) > 0) ? &data->textures[2] : &data->textures[3]; // Est ou Ouest
-        wall_hit = r.p2.y;
-    }
+	i = 0;
+	if ((r.h_wall_size - r.v_wall_size) < 0.001)
+	{
+		r.dist = r.h_wall_size;
+		side = 1;
+		if (sin(ray_a) < 0)
+			tex = NORD;
+		else
+			tex = SUD;
+		wall_x = (r.h_p.x / SCALE_BLOCK);
+		wall_x -= floor(wall_x);
+	}
+	else
+	{
+		side = 0;
+		r.dist = r.v_wall_size;
+		if (cos(ray_a) > 0)
+			tex = EST;
+		else
+			tex = OUEST;
+		wall_x = (r.v_p.y / SCALE_BLOCK);
+		wall_x -= floor(wall_x);
+	}
+	if (r.dist < 0.1)
+    	r.dist = 0.1;
+	tex_x = (wall_x * data->textures[tex].width);
+	r.height = (SCALE_BLOCK / r.dist) * (WIN_W / 2);
+	r.start = (WIN_H - r.height) / 2;
+	r.end = r.start + r.height;
+	step = data->textures[tex].height / r.height;
+	texPos = (r.start - (WIN_H / 2 - r.height / 2)) * step;
+	if (texPos < 0)
+		texPos = 0; 
+	while (i < r.start)
+	{
+		my_mlx_pixel_put(&data->img[data->active_img] , x, i, data->map->sky->color);
+		i++;
+	}
+	while (r.start < r.end)
+	{
+		tex_y = (int)texPos & (data->textures[tex].height - 1);
+		texPos += step;
 
-    // Correction pour éviter une distance nulle
-    if (r.dist < 1.0)
-        r.dist = 1.0;
-
-    // Calcul de la distance du plan de projection
-    proj_distance = (WIN_W / 2) / tan((FOV / 2) * RD);
-
-    // Calcul de la hauteur du mur à afficher
-    r.height = (SCALE_BLOCK / r.dist) * proj_distance;
-    r.start = (WIN_H - r.height) / 2;
-    r.end = r.start + r.height;
-
-    // Calcul de la coordonnée X de la texture
-    wall_hit = wall_hit - floor(wall_hit / SCALE_BLOCK) * SCALE_BLOCK;
-    tex_x = (int)(wall_hit * texture->width / SCALE_BLOCK);
-
-    // Si besoin, inverser la coordonnée texture pour certains côtés
-    if ((r.h_wall_size >= r.v_wall_size && cos(ray_a) < 0) || 
-        (r.h_wall_size < r.v_wall_size && sin(ray_a) > 0))
-        tex_x = texture->width - tex_x - 1;
-
-    // Calcul du pas pour parcourir la texture verticalement
-    step = (float)texture->height / r.height;
-    tex_pos = (r.start < 0) ? -r.start * step : 0;
-
-    // Dessiner le plafond
-    y = 0;
-    while (y < r.start && y < WIN_H)
-    {
-        my_mlx_pixel_put(&data->img[data->active_img], x, y, data->map->sky->color);
-        y++;
-    }
-
-    // Dessiner le mur texturé
-    y = r.start;
-    while (y < r.end && y < WIN_H)
-    {
-        tex_y = (int)tex_pos & (texture->height - 1);
-        tex_pos += step;
-        color = *(int *)(texture->addr + (tex_y * texture->line_length + tex_x * (texture->bpp / 8)));
-        my_mlx_pixel_put(&data->img[data->active_img], x, y, color);
-        y++;
-    }
-
-    // Dessiner le sol
-    while (y < WIN_H)
-    {
-        my_mlx_pixel_put(&data->img[data->active_img], x, y, data->map->floor->color);
-        y++;
-    }
+		// Récupérer la couleur de la texture :
+		// On utilise *(int *) pour lire la valeur
+		w_color = *(int *)(data->textures[tex].addr
+			+ ((int)tex_y * data->textures[tex].line_length)
+			+ ((int)tex_x * (data->textures[tex].bpp / 8)));
+		my_mlx_pixel_put(&data->img[data->active_img], x, r.start, w_color);
+		r.start++;
+	}
+	i = r.end;
+	while (i < WIN_H)
+	{
+		my_mlx_pixel_put(&data->img[data->active_img] , x, i, data->map->floor->color);
+		i++;
+	}
 }
 
 void	dda_checker(t_cub *data, float ray_a, int x)
@@ -164,10 +157,10 @@ void	dda_checker(t_cub *data, float ray_a, int x)
 		{
 			// r.p1.x = data->p1->px;
 			// r.p1.y = data->p1->py;
-			r.p2.x = r.first_x;
-			r.p2.y = r.first_y;
-			// draw_bresenham(r.p1, r.p2, data, 0xFF0000);
-			r.h_wall_size = distance(data, r.p2.x, r.p2.y, ray_a);
+			r.h_p.x = r.first_x;
+			r.h_p.y = r.first_y;
+			// draw_bresenham(r.p1, r.h_p, data, 0xFF0000);
+			r.h_wall_size = distance(data, r.h_p.x, r.h_p.y, ray_a);
 		}
 		else
 			r.h_wall_size = 1e30;
@@ -212,10 +205,10 @@ void	dda_checker(t_cub *data, float ray_a, int x)
 		{
 			// r.p1.x = data->p1->px;
 			// r.p1.y = data->p1->py;
-			r.p2.x = r.first_x;
-			r.p2.y = r.first_y;
-			// draw_bresenham(r.p1, r.p2, data, 0x00FF00);
-			r.v_wall_size = distance(data, r.p2.x, r.p2.y, ray_a);
+			r.v_p.x = r.first_x;
+			r.v_p.y = r.first_y;
+			// draw_bresenham(r.p1, r.v_p, data, 0x00FF00);
+			r.v_wall_size = distance(data, r.v_p.x, r.v_p.y, ray_a);
 		}
 		else
 			r.v_wall_size = 1e30;
