@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:40:22 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/04 17:37:22 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:39:40 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 	float	step;
 	float   texPos;
 
+	
 	i = 0;
 	if ((r.h_wall_size - r.v_wall_size) < 0.001)
 	{
@@ -65,8 +66,8 @@ void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 			tex = NORD;
 		else
 			tex = SUD;
-		wall_x = (r.h_p.x / SCALE_BLOCK);
-		wall_x -= floor(wall_x);
+		wall_x = ((float)r.h_p.x / (float)SCALE_BLOCK);
+		wall_x -= floorf(wall_x);
 	}
 	else
 	{
@@ -76,8 +77,8 @@ void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 			tex = EST;
 		else
 			tex = OUEST;
-		wall_x = (r.v_p.y / SCALE_BLOCK);
-		wall_x -= floor(wall_x);
+		wall_x = ((float)r.v_p.y / (float)SCALE_BLOCK);
+		wall_x -= floorf(wall_x);
 	}
 	if (r.dist < 0.1)
     	r.dist = 0.1;
@@ -96,7 +97,9 @@ void	raycasting(t_cub *data, t_dda r, int x, float ray_a)
 	}
 	while (r.start < r.end)
 	{
-		tex_y = (int)texPos & (data->textures[tex].height - 1);
+		tex_y = (int)texPos % data->textures[tex].height;
+		if (tex_y < 0)
+			tex_y += data->textures[tex].height;
 		texPos += step;
 
 		// Récupérer la couleur de la texture :
