@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:41:30 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/05 16:13:16 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:12:45 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,10 @@ void	free_array(char **array)
 	}
 	free(array[i]);
 	free (array);
+}
+
+int	close_win(t_envx *env)
+{
+	mlx_loop_end(env->mlx);
+	return (0);
 }

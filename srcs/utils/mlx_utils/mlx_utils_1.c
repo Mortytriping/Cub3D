@@ -6,13 +6,13 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/05 16:33:25 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:28:55 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cub3d.h"
 
-void	init_img(t_cub *data, int img)
+bool	init_img(t_cub *data, int img)
 {
 	data->img[img].img = mlx_new_image(data->envx->mlx, WIN_W, WIN_H);
 	if (!data->img[img].img)
@@ -23,7 +23,7 @@ void	init_img(t_cub *data, int img)
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
 		err_msg("Fatal error on mlx\n");
-		exit(1);
+		return (false);
 	}
 	data->img[img].addr = mlx_get_data_addr(data->img[img].img,
 			&data->img[img].bits_per_pixel,
@@ -36,11 +36,12 @@ void	init_img(t_cub *data, int img)
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
 		err_msg("Fatal error on mlx\n");
-		exit(1);
+		return (false);
 	}
+	return (true);
 }
 
-void	init_win_img(t_cub *data)
+bool	init_win_img(t_cub *data)
 {
 	data->envx->mlx_win = mlx_new_window(data->envx->mlx,
 			WIN_W, WIN_H, "Cub3d");
@@ -50,12 +51,15 @@ void	init_win_img(t_cub *data)
 		free(data->envx->mlx);
 		last_free_uninit_data(data);
 		err_msg("Fatal error on mlx\n");
-		exit(1);
+		return (false);
 	}
-	init_img(data, 0);
-	init_img(data, 1);
+	if (init_img(data, 0) == false)
+		return (false);
+	if (init_img(data, 1) == false)
+		return (mlx_destroy_image(data->envx->mlx, data->img[0].img), false);
 	mlx_put_image_to_window(data->envx->mlx, data->envx->mlx_win,
 		data->img[data->active_img].img, 0, 0);
+	return (true);
 }
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
@@ -68,10 +72,15 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	close_win(t_envx *env)
+void	free_last_er(t_cub *data)
 {
-	mlx_loop_end(env->mlx);
-	return (0);
+	mlx_clear_window(data->envx->mlx, data->envx->mlx_win);
+	mlx_destroy_window(data->envx->mlx, data->envx->mlx_win);
+	mlx_destroy_display(data->envx->mlx);
+	free_textures(data->map);
+	free_array(data->map->map);
+	free(data->envx->mlx);
+	last_free_uninit_data(data);
 }
 
 void	end_mlx(t_cub *data)

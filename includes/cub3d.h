@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/05 16:38:43 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:06:14 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ int		create_trgb(int t, int r, int g, int b);
 /*-----freeing-----*/
 void	last_free_uninit_data(t_cub *data);
 void	free_textures(t_map *map);
+void	free_last_er(t_cub *data);
 
 /*-----init_data-----*/
 t_cub	*init_data(void);
@@ -235,12 +236,12 @@ void	err_msg(char *str);
 void	free_array(char **array);
 
 /*----mlx_utils----*/
-void	init_win_img(t_cub *data);
+bool	init_win_img(t_cub *data);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int		close_win(t_envx *env);
 void	end_mlx(t_cub *data);
-void	init_texture(t_cub *data);
-void	load_texture(t_cub *data, char *path, t_texture *texture);
+bool	init_texture(t_cub *data);
+bool	load_texture(t_cub *data, char *path, t_texture *texture);
 
 /*----bresenham----*/
 void	draw_bresenham(t_point p1, t_point p2, t_cub *data, int color);

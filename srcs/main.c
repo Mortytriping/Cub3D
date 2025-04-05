@@ -6,13 +6,13 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:29:11 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/05 15:28:37 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:30:44 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	load_texture(t_cub *data, char *path, t_texture *texture)
+bool	load_texture(t_cub *data, char *path, t_texture *texture)
 {
 	texture->img = NULL;
 	texture->addr = NULL;
@@ -28,7 +28,7 @@ void	load_texture(t_cub *data, char *path, t_texture *texture)
 		ft_putstr_fd("Error\nFailed to load texture: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd("\n", 2);
-		exit(EXIT_FAILURE);
+		return (false);
 	}
 	texture->addr = mlx_get_data_addr(texture->img,
 			&texture->bpp, &texture->line_length, &texture->endian);
@@ -36,33 +36,44 @@ void	load_texture(t_cub *data, char *path, t_texture *texture)
 	{
 		ft_putstr_fd("Error\nFailed to get texture data address for: ", 2);
 		ft_putstr_fd(path, 2);
-		ft_putstr_fd("\n", 2);
-		exit(EXIT_FAILURE);
+		return (ft_putstr_fd("\n", 2), false);
 	}
+	return (true);
 }
 
-void	init_texture(t_cub *data)
+bool	init_texture(t_cub *data)
 {
-	load_texture(data, data->map->tex_no, &data->textures[0]);
-	load_texture(data, data->map->tex_so, &data->textures[1]);
-	load_texture(data, data->map->tex_ea, &data->textures[2]);
-	load_texture(data, data->map->tex_we, &data->textures[3]);
+	if (load_texture(data, data->map->tex_no, &data->textures[0]) == false)
+		return (false);
+	if (load_texture(data, data->map->tex_so, &data->textures[1]) == false)
+		return (mlx_destroy_image(data->envx->mlx, data->textures[0].img),
+			false);
+	if (load_texture(data, data->map->tex_ea, &data->textures[2]) == false)
+		return (mlx_destroy_image(data->envx->mlx, data->textures[0].img),
+			mlx_destroy_image(data->envx->mlx, data->textures[1].img), false);
+	if (load_texture(data, data->map->tex_we, &data->textures[3]) == false)
+		return (mlx_destroy_image(data->envx->mlx, data->textures[0].img),
+			mlx_destroy_image(data->envx->mlx, data->textures[1].img),
+			mlx_destroy_image(data->envx->mlx, data->textures[2].img), false);
+	return (true);
 }
 
 int	main(int ac, char **av)
 {
 	t_cub	*data;
 
-	(void)av;
-	(void)ac;
 	data = init_data();
 	if (!parsing(av, ac, data))
 		return (last_free_uninit_data(data), 1);
 	data->envx->mlx = mlx_init();
 	if (!data->envx->mlx)
 		return (err_msg("Fatal error on mlx"), last_free_uninit_data(data), 1);
-	init_win_img(data);
-	init_texture(data);
+	if (init_win_img(data) == false)
+		return (free_last_er(data), err_msg("Fatal error on mlx"), 1);
+	if (init_texture(data) == false)
+		return (mlx_destroy_image(data->envx->mlx, data->img[0].img),
+			mlx_destroy_image(data->envx->mlx, data->img[1].img),
+			free_last_er(data), err_msg("Fatal error on textures..."), 1);
 	mlx_hook(data->envx->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->envx->mlx_win, KeyRelease, KeyReleaseMask,
 		key_release, data);
