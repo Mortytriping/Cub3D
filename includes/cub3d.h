@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:52:36 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/04 19:04:36 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:38:43 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 
 # define PI 3.14159265359
 # define RD 0.01745329
-# define NO 3 * PI / 2
-# define SU PI / 2
+# define NO 4.7123889804
+# define SU 1.5707963268
 # define WE PI
 # define EA 0
 
@@ -71,13 +71,13 @@ typedef struct s_mlx
 
 typedef struct s_texture
 {
-    void	*img;          // Pointeur vers l'image MiniLibX
-    char	*addr;         // Adresse des pixels de l'image
-    int		width;         // Largeur de la texture
-    int		height;        // Hauteur de la texture
-    int		bpp;           // Bits par pixel
-    int		line_length;   // Longueur d'une ligne en octets
-    int		endian;        // Endianess (ordre des octets)
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_length;
+	int		endian;
 }	t_texture;
 
 typedef struct s_envx
@@ -94,8 +94,8 @@ typedef struct s_colors
 	int	r;
 	int	g;
 	int	b;
-	int color;
-} t_colors;
+	int	color;
+}	t_colors;
 
 typedef struct s_point
 {
@@ -129,7 +129,7 @@ typedef struct s_player
 	bool	rotate_right;
 }	t_player;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char		**map;
 	char		*tex_no;
@@ -138,11 +138,11 @@ typedef struct	s_map
 	char		*tex_ea;
 	t_colors	*floor;
 	t_colors	*sky;
-	int   		width;
+	int			width;
 	int			height;
-} t_map;
+}	t_map;
 
-typedef struct	s_dda
+typedef struct s_dda
 {
 	float	h_wall_size;
 	float	v_wall_size;
@@ -162,9 +162,20 @@ typedef struct	s_dda
 	t_point	p1;
 	t_point	h_p;
 	t_point	v_p;
-} t_dda;
+}	t_dda;
 
-
+typedef struct s_raycasting
+{
+	int		w_color;
+	int		side;
+	int		i;
+	int		tex;
+	float	wall_x;	
+	float	tex_x;
+	float	tex_y;
+	float	step;
+	float	texpos;
+}	t_raycasting;
 
 /*---------------main data structure---------------*/
 
@@ -174,15 +185,13 @@ typedef struct s_cub
 	t_mlx		img[2];
 	t_texture	textures[4];
 	int			active_img;
-	int 		win_width;
-	int 		win_height;
+	int			win_width;
+	int			win_height;
 	t_player	*p1;
 	t_map		*map;
 }	t_cub;
 
 /*-----------fonctions declarations start-----------*/
-
-/*------main------*/
 
 /*-----colors-----*/
 void	trunc_error_rgb(int *t, int *r, int *g, int *b);
@@ -200,22 +209,28 @@ int		keyboard_events(int keycode, t_cub *data);
 int		key_release(int keycode, t_cub *data);
 int		key_press(int keycode, t_cub *data);
 
-/*-----parsing-----*/
-
 /*-----player-----*/
 void	init_player(t_cub *data);
 void	moove_player(t_cub *data);
 
 /*---Raycasting---*/
-void	raycaster(t_cub *data);
+void	dda_checker(t_cub *data, float ray_a, int x);
+void	raycasting(t_cub *data, t_dda r, int x, float ray_a);
 void	draw_rays(t_cub *data);
+bool	ray_touch_wall(t_cub *data, int px, int py);
+void	dda_h_1(t_dda *r, t_cub *data, float ray_a);
+void	dda_h_2(t_dda *r, t_cub *data);
+void	dda_v_1(t_dda *r, t_cub *data, float ray_a);
+void	dda_v_2(t_dda *r, t_cub *data);
 
 /*----Rendering----*/
 int		render_next_frame(t_cub *data);
-void	draw_cercle(t_cub *data, int cx, int cy, int size, int color);
-void	floor_sky_color(t_mlx *img, t_cub *data);
+// void	floor_sky_color(t_mlx *img, t_cub *data);
+// void	draw_cercle(t_cub *data, int cx, int cy, int size, int color);
 
 /*------utils------*/
+float	distance(t_cub *data, float ray_x, float ray_y, float ray_a);
+float	clc_dist(float x, float y);
 void	err_msg(char *str);
 void	free_array(char **array);
 
@@ -227,11 +242,8 @@ void	end_mlx(t_cub *data);
 void	init_texture(t_cub *data);
 void	load_texture(t_cub *data, char *path, t_texture *texture);
 
-
 /*----bresenham----*/
-
 void	draw_bresenham(t_point p1, t_point p2, t_cub *data, int color);
-
 
 /*------------fonctions declarations end------------*/
 

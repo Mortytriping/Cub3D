@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+         #
+#    By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 11:03:00 by apouesse          #+#    #+#              #
-#    Updated: 2025/03/31 11:47:42 by abaroukh         ###   ########.fr        #
+#    Updated: 2025/04/05 16:28:03 by apouesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ SRCS = srcs/main.c \
 	srcs/Parsing/parsing_utils.c srcs/Parsing/init_tex_colors_utils2.c\
 	srcs/player/player.c \
 	srcs/Raycasting/raycasting_1.c \
+	srcs/Raycasting/dda.c \
+	srcs/Raycasting/dda_utils.c \
 	srcs/Raycasting/brensenham.c \
 	srcs/Rendering/rendering.c \
 	srcs/utils/mlx_utils/mlx_utils_1.c \

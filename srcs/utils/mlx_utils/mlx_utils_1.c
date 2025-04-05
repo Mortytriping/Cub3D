@@ -6,7 +6,7 @@
 /*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:16:10 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/04 19:00:15 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:33:25 by apouesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	init_img(t_cub *data, int img)
 
 void	init_win_img(t_cub *data)
 {
-	data->envx->mlx_win = mlx_new_window(data->envx->mlx, WIN_W, WIN_H, "Cub3d");
+	data->envx->mlx_win = mlx_new_window(data->envx->mlx,
+			WIN_W, WIN_H, "Cub3d");
 	if (!data->envx->mlx_win)
 	{
 		mlx_destroy_display(data->envx->mlx);
@@ -63,7 +64,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 
 	if (x >= WIN_W || y >= WIN_H || x < 0 || y < 0)
 		return ;
-	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
+	dst = mlx->addr + (y * mlx->line_length + x *(mlx->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -84,9 +85,8 @@ void	end_mlx(t_cub *data)
 	mlx_clear_window(data->envx->mlx, data->envx->mlx_win);
 	mlx_destroy_window(data->envx->mlx, data->envx->mlx_win);
 	mlx_destroy_display(data->envx->mlx);
-	//free all here
-	free_textures(data->map); // free les textures, merci captain obvious
-	free_array(data->map->map); // free la map, encore une fois merci captain obvious
+	free_textures(data->map);
+	free_array(data->map->map);
 	free(data->envx->mlx);
 	last_free_uninit_data(data);
 }
