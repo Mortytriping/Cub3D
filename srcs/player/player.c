@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:50:29 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/05 15:29:42 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:04:02 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	moove_player2(t_cub *data, float cos_angle, float sin_angle)
 		data->p1->px -= sin_angle * SPEED;
 		data->p1->py += cos_angle * SPEED;
 	}
-}	
+}
 
 void	moove_player(t_cub *data)
 {

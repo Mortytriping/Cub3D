@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apouesse <apouesse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaroukh <abaroukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 12:57:52 by apouesse          #+#    #+#             */
-/*   Updated: 2025/04/05 16:32:23 by apouesse         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:04:16 by abaroukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	render_next_frame(t_cub *data)
 	draw_rays(data);
 	mlx_put_image_to_window(data->envx->mlx, data->envx->mlx_win,
 		data->img[data->active_img].img, 0, 0);
-		data->active_img = (data->active_img + 1) % 2;
+	data->active_img = (data->active_img + 1) % 2;
 	return (0);
 }
 
